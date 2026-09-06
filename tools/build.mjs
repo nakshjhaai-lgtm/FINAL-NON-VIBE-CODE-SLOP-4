@@ -90,9 +90,9 @@ ${p.noindex ? '<meta name="robots" content="noindex, follow">\n' : ""}<meta name
 <link rel="preload" href="/assets/fonts/fraunces-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/karla-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://ik.imagekit.io">
-<script src="/assets/js/theme.js"></script>
-<script src="/assets/js/core.js" defer></script>
-<script src="/assets/js/site.js" defer></script>
+<script src="${ASSETS.theme}"></script>
+<script src="${ASSETS.core}" defer></script>
+<script src="${ASSETS.site}" defer></script>
 </head>
 <body>`;
 }
