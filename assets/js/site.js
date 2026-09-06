@@ -531,7 +531,7 @@
 
   function enhanceInquiry(form) {
     var q = new URLSearchParams(location.search);
-    var topicMap = { viewing: "A private viewing", repair: "Care & repairs", delivery: "Delivery", reserve: "A piece", general: "A piece" };
+    var topicMap = { viewing: "A private viewing", repair: "Care & repairs", delivery: "Delivery", reserve: "A piece", general: "A piece", gift: "A gift" };
     var want = q.get("topic");
     if (want && topicMap[want]) {
       var r = $$('input[name="topic"]', form).find(function (x) { return x.value === topicMap[want]; });

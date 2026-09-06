@@ -94,7 +94,7 @@ function header(active) {
     <div class="hdr__inner wrap">
       <a class="brand" href="/" aria-label="Lumière Jewels, home">
         <span class="brand__mark">${ICON.mark}</span>
-        <span class="brand__name">Lumière</span>
+        <span class="brand__name" translate="no">Lumière</span>
       </a>
       <nav class="nav" aria-label="Main">
 ${links}
@@ -117,7 +117,7 @@ ${links}
     <div class="menu__scrim" data-menu-close></div>
     <nav class="menu__panel" role="dialog" aria-modal="true" aria-label="Site menu">
       <div class="menu__top">
-        <span class="brand" aria-hidden="true"><span class="brand__mark">${ICON.mark}</span><span class="brand__name">Lumière</span></span>
+        <span class="brand" aria-hidden="true"><span class="brand__mark">${ICON.mark}</span><span class="brand__name" translate="no">Lumière</span></span>
         <button class="iconbtn" type="button" data-menu-close aria-label="Close menu">${ICON.close}</button>
       </div>
       <div class="menu__links">
@@ -143,8 +143,8 @@ function footer() {
     <div class="wrap">
       <div class="ftr__grid">
         <div class="ftr__brand">
-          <span class="brand" aria-hidden="true"><span class="brand__mark brand__mark--lg">${ICON.mark}</span><span class="brand__name brand__name--lg">Lumière</span></span>
-          <p class="ftr__tag">Fine jewelry, hand-finished on Wooster Street. Priced in the open.</p>
+          <span class="brand" aria-hidden="true"><span class="brand__mark brand__mark--lg">${ICON.mark}</span><span class="brand__name brand__name--lg" translate="no">Lumière</span></span>
+          <p class="ftr__tag">Fine jewelry, hand-finished on Wooster Street. Priced in the open since 2019.</p>
           <p class="ftr__line">
             <a href="tel:${SITE.phone}">${SITE.phoneDisplay}</a>
             <span aria-hidden="true">·</span>
@@ -152,27 +152,29 @@ function footer() {
           </p>
         </div>
         <nav class="ftr__col" aria-label="Collection">
-          <p class="ftr__h">Collection</h3>
+          <p class="ftr__h">Collection</p>
           <a href="/collection/">All pieces</a>
 ${CATEGORIES.map((c) => `          <a href="/collection/?filter=${c.id}">${c.label}</a>`).join("\n")}
           <a href="/bag/">Your selection</a>
         </nav>
         <nav class="ftr__col" aria-label="The house">
-          <p class="ftr__h">The house</h3>
+          <p class="ftr__h">The house</p>
           <a href="/craft/">Craft &amp; materials</a>
           <a href="/atelier/">Visit the atelier</a>
           <a href="/#inner-circle">The Inner Circle</a>
           <a href="/search/">Search</a>
         </nav>
         <nav class="ftr__col" aria-label="Service">
-          <p class="ftr__h">Service</h3>
+          <p class="ftr__h">Service</p>
           <a href="/care/">Care guide</a>
+          <a href="/shipping/">Shipping &amp; returns</a>
+          <a href="/care/#sizing">Ring &amp; chain sizing</a>
           <a href="/care/#faq">Frequently asked</a>
           <a href="/contact/?topic=repair">Repairs &amp; re-plating</a>
           <a href="/contact/">Write to the bench</a>
         </nav>
         <nav class="ftr__col" aria-label="Legal">
-          <p class="ftr__h">Fine print</h3>
+          <p class="ftr__h">Fine print</p>
           <a href="/privacy/">Privacy</a>
           <a href="/terms/">Terms</a>
           <a href="/sitemap.xml">Sitemap</a>
@@ -266,6 +268,7 @@ function productBody(p, idx) {
             <option value="">Fitted at the atelier</option>
 ${p.sizes.map((s) => `            <option>${s}</option>`).join("\n")}
           </select></span>
+          <a class="quiet sizerow__link" href="/care/#sizing">Find your size</a>
         </div>`
     : "";
   return `${crumbsHTML([{ name: "Collection", url: "/collection/" }, { name: p.name, url: `/product/${p.slug}/` }])}
@@ -286,7 +289,10 @@ ${sizeSel}
           <button class="btn btn--pri" type="button" data-add="${p.slug}" data-name="${esc(p.name)}" data-add-size="${p.sizes ? "#size" : ""}">Add to bag</button>
           <a class="btn btn--ghost" href="/contact/?topic=reserve&amp;piece=${encodeURIComponent(p.name)}">Reserve at atelier</a>
         </div>
-        <p class="fineprint">A reservation wraps the piece and holds it at 143 Wooster. ${esc(SITE.promo.note)}</p>
+        <p class="fineprint">A reservation wraps the piece and holds it at 143 Wooster. ${esc(SITE.promo.note)}<br>
+        Insured US shipping is free over $${SITE.policies.freeShipOver}, returns run ${SITE.policies.returnDays} days, and the
+        first resize is on us. <a href="/shipping/">Shipping &amp; returns &rarr;</a>
+        Gifting? The linen box and a hand-written note are already in the price.</p>
 
         <h2 class="h-rule">The details</h2>
         <ul class="specs">
@@ -308,6 +314,10 @@ ${p.specs.map((s) => `          <li>${esc(s)}</li>`).join("\n")}
           <li>
             <h3>Lifetime care</h3>
             <p>Unlimited cleaning, re-plating and minor repairs, on us.</p>
+          </li>
+          <li>
+            <h3>30-day returns</h3>
+            <p>A full month to decide, unworn outside. Engraved pieces are the honest exception.</p>
           </li>
         </ul>
       </div>
@@ -522,6 +532,31 @@ PRODUCTS.forEach((p, i) => {
             priceCurrency: "USD",
             price: String(p.price),
             url: `${SITE.url}${url}`,
+            availability: "https://schema.org/InStock",
+            itemCondition: "https://schema.org/NewCondition",
+            shippingDetails: {
+              "@type": "OfferShippingDetails",
+              shippingDestination: { "@type": "DefinedRegion", addressCountry: "US" },
+              shippingRate: {
+                "@type": "MonetaryAmount",
+                value: String(p.price >= SITE.policies.freeShipOver ? 0 : SITE.policies.flatShip),
+                currency: "USD",
+              },
+              deliveryTime: {
+                "@type": "ShippingDeliveryTime",
+                handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
+                transitTime: { "@type": "QuantitativeValue", minValue: 2, maxValue: 4, unitCode: "DAY" },
+              },
+            },
+            hasMerchantReturnPolicy: {
+              "@type": "MerchantReturnPolicy",
+              applicableCountry: "US",
+              returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+              merchantReturnDays: SITE.policies.returnDays,
+              returnMethod: "https://schema.org/ReturnByMail",
+              returnFees: "https://schema.org/FreeReturn",
+              url: `${SITE.url}/shipping/`,
+            },
           },
         },
       ],
@@ -563,6 +598,8 @@ const searchIndex = [
     s: `${p.name} ${p.material} ${p.specs.join(" ")} ${catLabel(p.category)} ${p.desc}`,
   })),
   { t: "Lifetime promise", d: "Cleaning, re-plating, minor repairs, on us.", u: "/care/#promise", k: "page", s: "lifetime promise repairs cleaning replating guarantee" },
+  { t: "Ring & chain size guide", d: "US sizes 4 to 10 with millimeter diameters, chain lengths.", u: "/care/#sizing", k: "page", s: "ring size chart us size millimeters diameter measure finger chain length necklace 16 18 inch extender" },
+  { t: "Free insured shipping over $150", d: "2 to 4 business days, 30-day returns.", u: "/shipping/", k: "page", s: "shipping free insured returns refund exchange resize resizing courier delivery tracking order" },
   { t: "Atelier hours & directions", d: "143 Wooster Street, Tuesday to Saturday.", u: "/atelier/#visit", k: "page", s: "hours directions map opening times appointment" },
   { t: "Holiday code LUMIERE15", d: "15% off during the holiday run.", u: "/#holiday", k: "page", s: "holiday sale promo code discount lumiere15" },
 ];
@@ -601,7 +638,8 @@ ${PRODUCTS.map((p) => `- [${p.name}](${SITE.url}/product/${p.slug}/): $${p.price
 
 - [The Collection](${SITE.url}/collection/): all six pieces, filterable
 - [Craft & materials](${SITE.url}/craft/): process ledger and materials
-- [Care & Service](${SITE.url}/care/): care guide, lifetime promise, FAQ
+- [Care & Service](${SITE.url}/care/): care guide, lifetime promise, ring and chain size guide, FAQ
+- [Shipping & returns](${SITE.url}/shipping/): free insured US shipping over $150, 30-day returns, first resize free
 - [Atelier](${SITE.url}/atelier/): hours, directions, what a visit looks like
 - [Inquire](${SITE.url}/contact/): forms go straight to the bench
 - [Privacy](${SITE.url}/privacy/) · [Terms](${SITE.url}/terms/)

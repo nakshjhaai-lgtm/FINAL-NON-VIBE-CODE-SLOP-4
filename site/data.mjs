@@ -15,6 +15,15 @@ export const SITE = {
   hours: "Tuesday to Saturday, 11am to 7pm. Sunday by appointment.",
   updated: "2026-09-06",
   promo: { code: "LUMIERE15", note: "Holiday pricing. 15% off with code LUMIERE15." },
+  // The published promises, kept here so page copy, product schema and the
+  // shipping page can never drift apart (competitor-parity set, cash model).
+  policies: {
+    freeShipOver: 150,
+    flatShip: 8,
+    shipWindow: "2 to 4 business days",
+    returnDays: 30,
+    resizeFreeYears: 1,
+  },
 };
 
 const IMG = {
@@ -22,6 +31,10 @@ const IMG = {
   etoile: "https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(2).webp?updatedAt=1773167035424",
   nova: "https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(3).webp.jpg?updatedAt=1773167035308",
   celestine: "https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(1).webp?updatedAt=1773167035328",
+  // These two used to reuse other pieces' photos (a chain shown as a pendant
+  // sells nothing). Now their own studio shots, served from our own origin.
+  lumina: "/assets/img/products/lumina-rope-chain.jpg",
+  twilight: "/assets/img/products/twilight-drop-earrings.jpg",
 };
 
 export const CATEGORIES = [
@@ -97,7 +110,7 @@ export const PRODUCTS = [
     materialShort: "Sterling Silver · Italian",
     desc: "A timeless rope chain with unexpected weight and drape. Made by fourth-generation silversmiths in Arezzo, Italy.",
     specs: ["2 mm rope chain", "18 inches with extender", "Rhodium-plated", "Italian craftsmanship"],
-    img: IMG.etoile, w: 768, h: 1024,
+    img: IMG.lumina, w: 768, h: 1024,
     alt: "Lumina Rope Chain in sterling silver",
   },
   {
@@ -111,7 +124,7 @@ export const PRODUCTS = [
     materialShort: "Silver · Pearl",
     desc: "A sculptural ear wire flows into a single teardrop pearl. Movement without weight.",
     specs: ["8 to 9 mm baroque pearls", "Hand-formed silver wire", "38 mm total drop", "Sold as a pair"],
-    img: IMG.nova, w: 896, h: 1152,
+    img: IMG.twilight, w: 768, h: 1024,
     alt: "Twilight Drop Earrings with freshwater pearls",
   },
 ];
@@ -150,6 +163,13 @@ export const PAGES = [
     title: "Care & Service. Cleaning, lifetime promise, FAQ | Lumière Jewels",
     desc: "Keep your piece bright: simple weekly care, what the lifetime promise covers, engraving, resizing and five questions we get at the counter.",
     schema: ["crumbs", "faq"], longform: true,
+  },
+  {
+    file: "shipping/index.html", url: "/shipping/", nav: "care",
+    crumb: [{ name: "Shipping & Returns", url: "/shipping/" }],
+    title: "Shipping, Returns & Resizing | Lumière Jewels",
+    desc: "Free insured US shipping over $150, 30-day returns, first resize on us. Same-day pickup at the SoHo atelier and gift wrapping with every order.",
+    schema: ["crumbs"],
   },
   {
     file: "atelier/index.html", url: "/atelier/", nav: "atelier",

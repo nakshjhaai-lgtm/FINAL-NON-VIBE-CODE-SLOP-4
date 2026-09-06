@@ -137,9 +137,13 @@
 
 /* ------------------------------------------------------------ reset */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
+/* The document itself can never be wider than the viewport: no scrollbar-gutter
+   math, no 100vw child, no sticky element may push the page off-screen. */
+html { -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; width: 100%; max-width: 100%; overflow-x: clip; }
 body {
   margin: 0;
+  width: 100%;
+  max-width: 100%;
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: 1.65;
@@ -147,7 +151,7 @@ body {
   color: var(--ink);
   background: var(--bg);
   overflow-x: clip;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   transition: background-color var(--t-std) var(--ease-in-out), color var(--t-std) var(--ease-in-out);
 }
 h1, h2, h3 {
@@ -235,7 +239,16 @@ a.quiet:hover { text-decoration-color: var(--gold); color: var(--gold-strong); }
    and grid/flex items are allowed to be smaller than their longest child. */
 .main *,
 .ftr *,
-.menu * { min-width: 0; }
+.menu *,
+.hdr * { min-width: 0; }
+.grid,
+.gridbox,
+.split,
+.stack,
+.cols,
+.columns,
+.articles,
+.cards,
 .hero,
 .strip,
 .svc__list,
@@ -263,10 +276,10 @@ a.quiet:hover { text-decoration-color: var(--gold); color: var(--gold-strong); }
 pre {
   max-width: 100%;
   white-space: pre-wrap;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 table { max-width: 100%; }
-td, th { overflow-wrap: break-word; }
+td, th { overflow-wrap: anywhere; }
 iframe { max-width: 100%; }
 
 /* Section header */
@@ -584,9 +597,16 @@ html.js .fcount[hidden] { display: none; }
 .svc__list > li:last-child { border-bottom: 0; }
 .svc__list h3 { font-size: 1.375rem; margin-bottom: 6px; }
 .svc__list p { color: var(--ink-2); max-width: 60ch; }
-@media (min-width: 820px) {
-  .svc__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .svc__list > li { padding-inline: var(--s-6); }
+/* Four promises, laid out 1 / 2x2 / 4 across. The hairlines follow the fold. */
+@media (min-width: 720px) {
+  .svc__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .svc__list > li { padding: var(--s-5) var(--s-6); border-bottom: 0; }
+  .svc__list > li:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+  .svc__list > li:nth-child(even) { border-left: 1px solid var(--line); }
+}
+@media (min-width: 1120px) {
+  .svc__list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .svc__list > li:nth-child(-n + 2) { border-bottom: 0; }
   .svc__list > li + li { border-left: 1px solid var(--line); }
 }
 
@@ -703,7 +723,14 @@ fieldset legend { font-size: var(--fs-small); font-weight: 600; letter-spacing: 
 .assure li { border-bottom: 1px solid var(--line); padding-block: var(--s-4); display: grid; gap: 2px; grid-template-columns: minmax(0, 1fr); }
 .assure h3 { font-family: var(--font-body); font-weight: 600; font-size: var(--fs-body); letter-spacing: 0.04em; }
 .assure p { color: var(--ink-2); font-size: var(--fs-small); }
-@media (min-width: 760px) { .assure { grid-template-columns: repeat(3, minmax(0, 1fr)); } .assure li { border-bottom: 0; padding: var(--s-4) var(--s-5); } .assure li + li { border-left: 1px solid var(--line); } }
+/* Four assurances in a 2x2 fold; the list sits inside the product column,
+   so a 4-across row would starve the copy of width. */
+@media (min-width: 700px) {
+  .assure { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .assure li { border-bottom: 0; padding: var(--s-4) var(--s-5); }
+  .assure li:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+  .assure li:nth-child(even) { border-left: 1px solid var(--line); }
+}
 .pager { display: grid; gap: 1px; grid-template-columns: minmax(0, 1fr); background: var(--line); border: 1px solid var(--line); margin-block: var(--s-5) var(--s-8); }
 .pager a { background: var(--bg); padding: var(--s-4) var(--s-5); transition: background-color var(--t-fast); }
 .pager a:hover { background: var(--bg-2); }
@@ -774,12 +801,29 @@ fieldset legend { font-size: var(--fs-small); font-weight: 600; letter-spacing: 
 .qa > :not(summary) { padding: 0 var(--s-8) var(--s-5) 0; color: var(--ink-2); }
 .qa p + p { margin-top: var(--s-2); }
 
+/* ------------------------------------------------------------ sizing tables */
+.sizing { padding-block: var(--s-2) var(--s-6); }
+.sizing__tables { padding-block: var(--s-2) var(--s-5); }
+.sizing__h { font-family: var(--font-display); font-weight: 500; font-size: 1.375rem; margin-bottom: var(--s-3); }
+.rtab { width: 100%; table-layout: fixed; }
+.rtab th, .rtab td {
+  text-align: left; padding: 8px var(--s-3) 8px 0;
+  border-bottom: 1px solid var(--line); font-weight: 400; font-size: var(--fs-small);
+  vertical-align: top;
+}
+.rtab thead th { font-size: var(--fs-micro); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.rtab tbody th { font-weight: 600; font-variant-numeric: tabular-nums; }
+.rtab tr:last-child td, .rtab tr:last-child th { border-bottom: 0; }
+.matter--tight { padding-block: var(--s-2) var(--s-6); }
+.sizerow__link { font-size: var(--fs-small); white-space: nowrap; }
+
 /* ------------------------------------------------------------ atelier */
 .visit-grid { display: grid; gap: var(--s-5); grid-template-columns: minmax(0, 1fr); margin-block: var(--s-4) var(--s-7); }
 @media (min-width: 900px) { .visit-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--s-7); align-items: stretch; } }
 .visit-card { border: 1px solid var(--line); background: var(--surface); padding: var(--s-6); display: flex; flex-direction: column; gap: var(--s-4); }
 .visit-card .h-rule { margin: 0; }
 .visit-addr { font-size: 1.125rem; line-height: 1.5; font-weight: 500; }
+.hours { table-layout: fixed; }
 .hours td, .hours th { text-align: left; padding: 8px 0; border-bottom: 1px solid var(--line); font-weight: 400; }
 .hours th { font-weight: 600; min-width: 0; width: clamp(8.5rem, 38vw, 12rem); }
 .hours tr:last-child td, .hours tr:last-child th { border-bottom: 0; }
