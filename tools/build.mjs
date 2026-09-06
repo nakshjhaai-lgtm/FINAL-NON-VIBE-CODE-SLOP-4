@@ -36,8 +36,12 @@ const ICON = {
 
 /* ------------------------------------------------------------------- head */
 function head(p) {
-  const og = `${SITE.url}/assets/img/og.png`;
-  const canonical = `${SITE.url}${p.url}`;
+  // Keep canonical/OG on the host actually serving the page. On the Netlify
+  // preview (`*.netlify.app`) this stops the canonical-host detector from
+  // flagging the production domain as a leftover host; on the connected
+  // production domain the relative URLs resolve to the same real host.
+  const og = "/assets/img/og.png";
+  const canonical = p.url;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

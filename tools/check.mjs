@@ -52,6 +52,8 @@ for (const p of pages) {
   ok(/<html lang="en">/.test(p.src), `${p.rel}: lang attribute`);
   ok(/initial-scale=1/.test(p.src) && !/maximum-scale/.test(p.src), `${p.rel}: viewport, zoom not disabled`);
   ok(/rel="canonical"/.test(p.src), `${p.rel}: canonical`);
+  ok(!/<link rel="canonical" href="https?:\/\/[^"]+"/.test(p.src), `${p.rel}: canonical is host-relative (no canonical/OG host mismatch)`);
+  ok(!/<meta property="og:(?:url|image)" content="https?:\/\/[^"]+"/.test(p.src), `${p.rel}: OG url/image are host-relative`);
   ok(/property="og:image"/.test(p.src) && /twitter:card/.test(p.src), `${p.rel}: share metadata`);
   ok(/name="theme-color"/.test(p.src), `${p.rel}: theme-color`);
   ok((p.src.match(/<h1/g) || []).length === 1, `${p.rel}: exactly one h1 (got ${p.src.split("<h1").length - 1})`);
@@ -178,6 +180,8 @@ for (const c of ["rings", "necklaces", "earrings"]) {
 const css = readFileSync(join(ROOT, "assets/css/site.css"), "utf8");
 ok(!/transition:\s*all/.test(css), "css: no transition:all");
 ok(!/body\s*\{[^}]*overflow-x:\s*hidden/.test(css), "css: horizontal overflow fixed, not hidden (clip allowed)");
+ok(/overflow-wrap:\s*break-word/.test(css), "css: long copy/URLs wrap instead of widening the page");
+ok(/grid-template-columns:\s*minmax\(0,\s*1fr\)/.test(css), "css: grids use minmax(0,1fr) tracks so tables/pre/iframes can shrink");
 ok(!/box-shadow:[^;]*(glow|0 0 \d+px rgba\(2\d\d)/.test(css), "css: no decorative glow shadows");
 const radii = new Set([...css.matchAll(/--r-\w+:\s*([^;]+);/g)].map((m) => m[1]));
 ok(radii.size <= 3, `css: radius system has ${radii.size} values, max 3`);

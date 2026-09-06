@@ -4,7 +4,9 @@
 export const SITE = {
   name: "Lumière Jewels",
   short: "Lumière",
-  // Swap to the connected domain at deploy; canonicals, sitemap and OG build from this.
+  // Swap to the connected domain at deploy; sitemap and llms.txt build from
+  // this. Canonical/OG in <head> are host-relative so preview and production
+  // both point at the host that is actually serving the page.
   url: "https://lumierejewels.com",
   email: "hello@lumierejewels.com",
   phone: "+12125550143",
@@ -42,7 +44,7 @@ export const PRODUCTS = [
     specs: ["42 hand-set stones", "2 mm comfort-fit band", "14k gold over sterling silver", "Sizes 4 to 10 available"],
     sizes: [4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10],
     img: IMG.aurora, w: 768, h: 1024,
-    alt: "Aurora Pavé Band, a thin 14k gold ring lined with micro-pavé stones, photographed on a dark surface",
+    alt: "Aurora Pavé Band in 14k gold vermeil",
   },
   {
     slug: "etoile-diamond-pendant",
@@ -56,7 +58,7 @@ export const PRODUCTS = [
     desc: "A single brilliant-cut diamond suspended from our signature fine chain. The bezel setting creates that coveted floating effect.",
     specs: ["0.15 ct VS clarity diamond", "Solid 14k gold", "Adjustable 16 to 18 inch chain", "Certificate included"],
     img: IMG.etoile, w: 768, h: 1024,
-    alt: "Étoile Diamond Pendant, a bezel-set diamond hanging from a fine gold chain",
+    alt: "Étoile Diamond Pendant in solid gold",
   },
   {
     slug: "nova-huggie-hoops",
@@ -69,7 +71,7 @@ export const PRODUCTS = [
     desc: "Modern huggies that sit close to the ear with a subtle line of pavé stones along the outer edge.",
     specs: ["12 mm diameter", "Hinged click-closure", "14k gold over sterling silver", "Sold as a pair"],
     img: IMG.nova, w: 896, h: 1152,
-    alt: "Nova Huggie Hoops, small gold hinged hoop earrings with a line of pavé stones",
+    alt: "Nova Huggie Hoops in gold vermeil",
   },
   {
     slug: "celestine-signet",
@@ -83,7 +85,7 @@ export const PRODUCTS = [
     desc: "A modern take on the classic signet with softened edges, a gently domed face, and a mirror polish that catches light like water.",
     specs: ["10 × 8 mm face", "Mirror polish finish", "Rhodium-plated", "Custom engraving available"],
     img: IMG.celestine, w: 768, h: 1024,
-    alt: "Celestine Signet, a sterling silver signet ring with a domed, mirror-polished face",
+    alt: "Celestine Signet in sterling silver",
   },
   {
     slug: "lumina-rope-chain",
@@ -96,7 +98,7 @@ export const PRODUCTS = [
     desc: "A timeless rope chain with unexpected weight and drape. Made by fourth-generation silversmiths in Arezzo, Italy.",
     specs: ["2 mm rope chain", "18 inches with extender", "Rhodium-plated", "Italian craftsmanship"],
     img: IMG.etoile, w: 768, h: 1024,
-    alt: "Lumina Rope Chain, a fine silver chain in close detail",
+    alt: "Lumina Rope Chain in sterling silver",
   },
   {
     slug: "twilight-drop-earrings",
@@ -110,7 +112,7 @@ export const PRODUCTS = [
     desc: "A sculptural ear wire flows into a single teardrop pearl. Movement without weight.",
     specs: ["8 to 9 mm baroque pearls", "Hand-formed silver wire", "38 mm total drop", "Sold as a pair"],
     img: IMG.nova, w: 896, h: 1152,
-    alt: "Twilight Drop Earrings, silver ear wires set with baroque freshwater pearls",
+    alt: "Twilight Drop Earrings with freshwater pearls",
   },
 ];
 
