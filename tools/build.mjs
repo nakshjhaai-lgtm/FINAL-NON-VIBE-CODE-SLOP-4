@@ -10,11 +10,26 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import { SITE, PAGES, PRODUCTS, CATEGORIES, NAV } from "../site/data.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "site/pages");
 
+/* Cache-busting, the durable kind. A browser cache is keyed by URL, so a file
+   whose URL carries a hash of its own content is a brand-new resource the
+   moment its content changes: no visitor ever needs to clear anything, and the
+   assets can sit in a year-long immutable cache instead of expiring weekly.
+   HTML is always served revalidate-first by Netlify, so the new URL reaches
+   every visitor on the next plain page load. */
+const assetUrl = (rel) =>
+  `${rel}?v=${createHash("sha256").update(readFileSync(join(ROOT, rel))).digest("hex").slice(0, 8)}`;
+const ASSETS = {
+  css: assetUrl("/assets/css/site.css"),
+  theme: assetUrl("/assets/js/theme.js"),
+  core: assetUrl("/assets/js/core.js"),
+  site: assetUrl("/assets/js/site.js"),
+};
 const esc = (s) =>
   String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 
@@ -70,8 +85,8 @@ ${p.noindex ? '<meta name="robots" content="noindex, follow">\n' : ""}<meta name
 <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/assets/site.webmanifest">
-<link rel="preload" href="/assets/css/site.css" as="style">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="preload" href="${ASSETS.css}" as="style">
+<link rel="stylesheet" href="${ASSETS.css}">
 <link rel="preload" href="/assets/fonts/fraunces-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/karla-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://ik.imagekit.io">
