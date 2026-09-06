@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lumière Jewels — Fine Jewelry, Modern Design</title>
+<meta name="description" content="Hand-finished fine jewelry from our New York atelier. Ethically sourced, designed to be lived in.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Preload hero image for LCP -->
+<link rel="preload" as="image" href="https://ik.imagekit.io/juxjcwmvp/generated-image-1.webp">
+
+<style>
+/* ================================================================
+   DESIGN TOKENS
+   ================================================================ */
+:root {
+  --void: #050505;
+  --obsidian: #111111;
+  --graphite: #1C1C1E;
+  --ash: #3A3A3C;
+  --smoke: #8A8A8E;
+  --pearl: #F5F0EB;
+  --ivory: #FAFAF7;
+  --champagne: #C9A96E;
+  --champagne-dim: rgba(201,169,110,0.12);
+  --champagne-glow: rgba(201,169,110,0.18);
+  --rose-gold: #B76E79;
+  --rose-dim: rgba(183,110,121,0.10);
+  --error: #E5484D;
+  --error-dim: rgba(229,72,77,0.10);
+  --success: #30A46C;
+  --success-dim: rgba(48,164,108,0.10);
+
+  /* Semantic – dark default */
+  --color-bg: var(--void);
+  --color-bg-raised: var(--obsidian);
+  --color-bg-overlay: var(--graphite);
+  --color-bg-inset: rgba(255,255,255,0.03);
+  --color-surface: var(--obsidian);
+  --color-surface-hover: var(--graphite);
+  --color-border: rgba(255,255,255,0.08);
+  --color-border-strong: rgba(255,255,255,0.14);
+  --color-text: var(--pearl);
+  --color-text-muted: var(--smoke);
+  --color-text-faint: var(--ash);
+  --color-accent: var(--champagne);
+  --color-accent-dim: var(--champagne-dim);
+  --color-accent-glow: var(--champagne-glow);
+  --color-accent-2: var(--rose-gold);
+  --color-inverse-bg: var(--ivory);
+  --color-inverse-text: var(--void);
+
+  /* Typography */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --text-hero: clamp(48px, 8vw, 120px);
+  --text-display: clamp(32px, 5vw, 64px);
+  --text-title: clamp(22px, 3vw, 32px);
+  --text-heading: clamp(18px, 2.5vw, 24px);
+  --text-body: 16px;
+  --text-small: 14px;
+  --text-caption: 12px;
+  --text-micro: 11px;
+
+  /* Spacing – 8px base */
+  --space-1: 4px; --space-2: 8px; --space-3: 16px;
+  --space-4: 24px; --space-5: 32px; --space-6: 48px;
+  --space-7: 80px; --space-8: 120px; --space-9: 160px;
+  --space-10: 200px;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-pad: 24px;
+  --touch-target: 44px;
+  --header-height: 64px;
+
+  /* Radius – near-zero philosophy */
+  --radius-none: 0; --radius-xs: 2px;
+  --radius-sm: 4px; --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 80px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 60px rgba(201,169,110,0.15);
+  --shadow-glow-lg: 0 0 120px rgba(201,169,110,0.12);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-instant: 100ms; --dur-fast: 200ms;
+  --dur-normal: 400ms; --dur-slow: 800ms;
+  --dur-reveal: 1200ms;
+
+  /* Z-index */
+  --z-base: 1; --z-sticky: 20; --z-overlay: 30;
+  --z-modal: 40; --z-toast: 50;
+
+  /* Safe areas */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ================================================================
+   LIGHT THEME OVERRIDES
+   [Fix #6: Creates actual visual rhythm with true light/dark modes]
+   ================================================================ */
+[data-theme="light"] {
+  --color-bg: var(--ivory);
+  --color-bg-raised: #FFFFFF;
+  --color-bg-overlay: #F0EDE8;
+  --color-bg-inset: rgba(0,0,0,0.02);
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F5F2EE;
+  --color-border: rgba(0,0,0,0.06);
+  --color-border-strong: rgba(0,0,0,0.12);
+  --color-text: var(--void);
+  --color-text-muted: #6B6B6B;
+  --color-text-faint: #ADADAD;
+  --color-accent: #A88642;
+  --color-accent-dim: rgba(168,134,66,0.08);
+  --color-accent-glow: rgba(168,134,66,0.12);
+  --color-accent-2: #A05A64;
+  --color-inverse-bg: var(--void);
+  --color-inverse-text: var(--pearl);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-lg: 0 20px 80px rgba(0,0,0,0.1);
+  --shadow-glow: 0 0 60px rgba(168,134,66,0.08);
+}
+
+
+/* ================================================================
+   RESET + BASE
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html.scroll-locked { overflow: hidden; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--color-text);
+  background: var(--color-bg);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  transition: background var(--dur-slow) var(--ease-smooth),
+              color var(--dur-normal) var(--ease-smooth);
+}
+
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select {
+  font: inherit; color: inherit;
+  border: none; background: none;
+  -webkit-appearance: none; appearance: none;
+}
+button { cursor: pointer; }
+img, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+ul, ol { list-style: none; }
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+::selection { background: var(--color-accent); color: var(--void); }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: var(--radius-full); }
+* { scrollbar-width: thin; scrollbar-color: var(--color-border-strong) transparent; }
+
+
+/* ================================================================
+   LAYOUT
+   ================================================================ */
+.container {
+  width: min(var(--container-max), calc(100% - var(--container-pad) * 2));
+  margin-inline: auto;
+}
+@media (min-width: 768px) { :root { --container-pad: 40px; } }
+
+.section { padding-block: var(--space-7); }
+@media (min-width: 768px)  { .section { padding-block: var(--space-8); } }
+@media (min-width: 1024px) { .section { padding-block: var(--space-9); } }
+
+/* [Fix #6: Inverted section creates visual rhythm breaks] */
+.section-invert {
+  background: var(--color-inverse-bg);
+  color: var(--color-inverse-text);
+}
+[data-theme="light"] .section-invert {
+  --color-border: rgba(255,255,255,0.08);
+  --color-text-muted: var(--smoke);
+  --color-accent: var(--champagne);
+}
+
+
+/* ================================================================
+   TYPOGRAPHY CLASSES
+   [Fix #11: Replaced Playfair with DM Serif Display]
+   [Fix #12: Minimum caption size now 12px, not 11px]
+   [Fix #13: Reduced to 6 clear steps]
+   [Fix #14: Tighter clamp ranges]
+   ================================================================ */
+.text-hero    { font-family: var(--font-display); font-size: var(--text-hero); line-height: 0.95; letter-spacing: -0.03em; }
+.text-display { font-family: var(--font-display); font-size: var(--text-display); line-height: 1.05; letter-spacing: -0.02em; }
+.text-title   { font-family: var(--font-display); font-size: var(--text-title); line-height: 1.15; letter-spacing: -0.01em; }
+.text-heading { font-family: var(--font-display); font-size: var(--text-heading); line-height: 1.15; }
+.text-body    { font-size: var(--text-body); }
+.text-small   { font-size: var(--text-small); }
+.text-caption { font-size: var(--text-caption); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4; }
+.text-micro   { font-size: var(--text-micro); font-weight: 500; letter-spacing: 0.04em; }
+.text-muted   { color: var(--color-text-muted); }
+.text-faint   { color: var(--color-text-faint); }
+.text-accent  { color: var(--color-accent); }
+
+
+/* ================================================================
+   SKIP LINK [Fix #29: Skip-to-content for keyboard users]
+   ================================================================ */
+.skip-link {
+  position: fixed; top: -100px; left: 16px;
+  z-index: 999; padding: 12px 24px;
+  background: var(--color-accent); color: var(--void);
+  font-weight: 500; font-size: 14px;
+  transition: top var(--dur-fast) var(--ease-out);
+}
+.skip-link:focus { top: 16px; }
+
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); min-height: var(--touch-target);
+  padding: 14px 28px;
+  font-size: var(--text-caption); font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; line-height: 1;
+  border-radius: var(--radius-none);
+  position: relative; overflow: hidden; white-space: nowrap;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+  transition: background var(--dur-fast) var(--ease-smooth),
+              color var(--dur-fast) var(--ease-smooth),
+              border-color var(--dur-fast) var(--ease-smooth),
+              box-shadow var(--dur-normal) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+  isolation: isolate;
+}
+.btn:active { transform: scale(0.98); }
+
+/* Shimmer sweep */
+.btn::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 45%,
+    rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 55%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease-out);
+  pointer-events: none;
+}
+.btn:hover::after { transform: translateX(120%); }
+
+.btn-primary {
+  background: var(--color-accent); color: var(--void);
+  border: 1px solid var(--color-accent);
+}
+.btn-primary:hover { background: #D4B87A; border-color: #D4B87A; box-shadow: var(--shadow-glow); }
+
+.btn-secondary {
+  background: var(--color-text); color: var(--color-bg);
+  border: 1px solid var(--color-text);
+}
+.btn-secondary:hover { opacity: 0.9; }
+
+.btn-ghost {
+  background: transparent; color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+}
+.btn-ghost:hover { background: var(--color-bg-inset); border-color: var(--color-text-muted); }
+
+.btn-sm { min-height: 36px; padding: 8px 16px; font-size: var(--text-micro); }
+.btn-lg { min-height: 52px; padding: 16px 36px; font-size: 13px; letter-spacing: 0.12em; }
+.btn-block { width: 100%; }
+
+.btn-icon {
+  width: var(--touch-target); height: var(--touch-target); padding: 0;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  display: grid; place-items: center;
+  transition: background var(--dur-fast) var(--ease-smooth),
+              border-color var(--dur-fast) var(--ease-smooth),
+              color var(--dur-fast) var(--ease-smooth);
+}
+.btn-icon::after { display: none; }
+.btn-icon:hover {
+  background: var(--color-bg-inset);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+.btn-icon-sm { width: 36px; height: 36px; }
+
+.btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+.icon { width: 20px; height: 20px; flex-shrink: 0; }
+.icon-sm { width: 16px; height: 16px; }
+
+
+/* ================================================================
+   HEADER / NAV
+   [Fix #3: Announcement bar removed — replaced with inline hero mention]
+   [Fix #32: Announcement bar removed entirely]
+   ================================================================ */
+.header {
+  position: sticky; top: 0; z-index: var(--z-sticky);
+  height: var(--header-height);
+  display: flex; align-items: center;
+  background: rgba(5,5,5,0.85);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border-bottom: 1px solid var(--color-border);
+  transition: background var(--dur-normal) var(--ease-smooth);
+}
+[data-theme="light"] .header { background: rgba(250,250,247,0.85); }
+
+.header-inner {
+  width: min(var(--container-max), calc(100% - var(--container-pad) * 2));
+  margin-inline: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.nav-brand {
+  display: flex; align-items: center; gap: var(--space-2);
+  min-height: var(--touch-target); padding: 0 var(--space-1);
+}
+
+.nav-mark {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--champagne), #A88642);
+  box-shadow: 0 2px 12px var(--color-accent-dim);
+  position: relative;
+}
+.nav-mark::after {
+  content: ''; position: absolute; top: 4px; left: 5px;
+  width: 8px; height: 8px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%; filter: blur(2px);
+}
+
+.nav-wordmark { font-family: var(--font-display); font-size: 18px; }
+
+.nav-links { display: none; align-items: center; gap: var(--space-4); }
+@media (min-width: 1024px) { .nav-links { display: flex; } }
+
+.nav-link {
+  position: relative;
+  font-size: var(--text-caption); font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-2) var(--space-1);
+  min-height: var(--touch-target);
+  display: flex; align-items: center;
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+.nav-link::after {
+  content: ''; position: absolute;
+  bottom: 6px; left: var(--space-1); right: var(--space-1);
+  height: 1px; background: var(--color-accent);
+  transform: scaleX(0); transform-origin: right;
+  transition: transform var(--dur-normal) var(--ease-out);
+}
+.nav-link:hover { color: var(--color-text); }
+.nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.nav-actions { display: flex; align-items: center; gap: var(--space-2); }
+.nav-cta-desktop { display: none; gap: var(--space-2); }
+@media (min-width: 768px) { .nav-cta-desktop { display: flex; } }
+
+
+/* ================================================================
+   THEME TOGGLE
+   ================================================================ */
+.theme-toggle {
+  width: var(--touch-target); height: var(--touch-target);
+  display: grid; place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  position: relative; overflow: hidden;
+  transition: background var(--dur-fast) var(--ease-smooth),
+              border-color var(--dur-fast) var(--ease-smooth),
+              color var(--dur-fast) var(--ease-smooth);
+}
+.theme-toggle:hover {
+  background: var(--color-bg-inset);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+.theme-toggle .icon-sun, .theme-toggle .icon-moon {
+  position: absolute;
+  transition: transform var(--dur-normal) var(--ease-out), opacity var(--dur-fast) var(--ease-smooth);
+}
+[data-theme="dark"] .icon-sun  { transform: rotate(0deg) scale(1); opacity: 1; }
+[data-theme="dark"] .icon-moon { transform: rotate(90deg) scale(0); opacity: 0; }
+[data-theme="light"] .icon-sun  { transform: rotate(-90deg) scale(0); opacity: 0; }
+[data-theme="light"] .icon-moon { transform: rotate(0deg) scale(1); opacity: 1; }
+
+
+/* ================================================================
+   MOBILE MENU
+   [Fix #20: Focus trap implemented in JS]
+   ================================================================ */
+.mobile-overlay {
+  position: fixed; inset: 0; z-index: var(--z-overlay);
+  background: rgba(5,5,5,0.7);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-normal) var(--ease-smooth);
+}
+.mobile-overlay.show { opacity: 1; pointer-events: auto; }
+
+.mobile-menu {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  z-index: var(--z-modal);
+  width: min(380px, 85vw);
+  background: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+  display: flex; flex-direction: column;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  transform: translateX(100%);
+  transition: transform var(--dur-normal) var(--ease-out);
+}
+.mobile-menu.show { transform: translateX(0); }
+
+.mobile-menu-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-menu-links {
+  display: flex; flex-direction: column; flex: 1;
+  padding: var(--space-4);
+}
+
+.mobile-menu-link {
+  font-family: var(--font-display);
+  font-size: var(--text-title); font-weight: 400;
+  padding: var(--space-3) 0;
+  min-height: var(--touch-target);
+  display: flex; align-items: center;
+  transition: color var(--dur-fast) var(--ease-smooth),
+              transform var(--dur-normal) var(--ease-out);
+}
+.mobile-menu-link:hover { color: var(--color-accent); transform: translateX(8px); }
+
+.mobile-menu-footer {
+  padding: var(--space-4);
+  padding-bottom: calc(var(--space-4) + var(--safe-bottom));
+  border-top: 1px solid var(--color-border);
+  display: flex; flex-direction: column; gap: var(--space-3);
+}
+
+
+/* ================================================================
+   HERO
+   [Fix #1: Real product image replaces CSS shapes]
+   [Fix #2: Full-viewport dark hero with emotional pull]
+   [Fix #4: Removed fake avatar circles]
+   [Fix #25: No infinite animations — scroll-triggered only]
+   [Fix #27: No perpetual ring rotation]
+   ================================================================ */
+.hero {
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  background: var(--color-bg);
+}
+
+.hero-media {
+  position: relative; flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+.hero-media::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, var(--color-accent-glow), transparent 70%);
+  z-index: 1; pointer-events: none;
+}
+
+.hero-image {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 30%;
+  position: absolute; inset: 0;
+  transition: transform var(--dur-reveal) var(--ease-out);
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: var(--space-7) var(--space-3);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    flex-direction: row;
+  }
+  .hero-media {
+    flex: 1; min-height: 100vh; min-height: 100dvh;
+  }
+  .hero-content {
+    position: absolute; inset: 0; z-index: 2;
+    padding: var(--space-8);
+    justify-content: flex-end; align-items: flex-start;
+    text-align: left;
+    background: linear-gradient(to top, rgba(5,5,5,0.8) 0%, rgba(5,5,5,0.3) 40%, transparent 70%);
+  }
+  [data-theme="light"] .hero-content {
+    background: linear-gradient(to top, rgba(250,250,247,0.9) 0%, rgba(250,250,247,0.4) 40%, transparent 70%);
+  }
+}
+
+.hero-label {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.hero-label::before, .hero-label::after {
+  content: ''; width: 32px; height: 1px; background: var(--color-accent);
+}
+@media (min-width: 768px) {
+  .hero-label::before { display: none; }
+}
+
+.hero-title {
+  max-width: 10ch; margin-bottom: var(--space-4);
+  color: var(--pearl);
+}
+.hero-title em { font-style: italic; color: var(--color-accent); }
+
+[data-theme="light"] .hero-title { color: var(--void); }
+@media (min-width: 768px) {
+  [data-theme="light"] .hero-title { color: var(--pearl); }
+}
+
+/* [Fix #3 partial: Inline promo replaces announcement bar] */
+.hero-promo {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: 8px 16px; margin-bottom: var(--space-5);
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.2);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-caption); font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-accent);
+  backdrop-filter: blur(10px);
+}
+.hero-promo-dismiss {
+  width: 20px; height: 20px; display: grid; place-items: center;
+  border-radius: var(--radius-full); margin-left: var(--space-2);
+  color: var(--color-accent); opacity: 0.6;
+  transition: opacity var(--dur-fast) var(--ease-smooth);
+}
+.hero-promo-dismiss:hover { opacity: 1; }
+.hero-promo.dismissed { display: none; }
+
+.hero-actions {
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--space-3); width: 100%; max-width: 340px;
+}
+.hero-actions .btn { width: 100%; }
+
+@media (min-width: 480px) {
+  .hero-actions { flex-direction: row; max-width: none; width: auto; }
+  .hero-actions .btn { width: auto; }
+}
+@media (min-width: 768px) {
+  .hero-actions { align-items: flex-start; }
+}
+
+/* Hero scroll indicator */
+.hero-scroll {
+  display: none; position: absolute;
+  bottom: var(--space-5); left: 50%;
+  transform: translateX(-50%); z-index: 2;
+  flex-direction: column; align-items: center; gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-micro); font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+@media (min-width: 768px) { .hero-scroll { display: flex; } }
+
+.hero-scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--color-accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(0.6); }
+}
+
+
+/* ================================================================
+   STORY SECTION
+   [Fix #8: Reduced from 3 stacked blocks to 2-col editorial]
+   ================================================================ */
+.story-section { overflow: hidden; }
+
+.story-grid {
+  display: grid; gap: var(--space-5);
+}
+@media (min-width: 1024px) {
+  .story-grid { grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: center; }
+}
+
+.story-media {
+  aspect-ratio: 3/4; overflow: hidden;
+  position: relative;
+}
+.story-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.story-media:hover img { transform: scale(1.03); }
+
+/* Ambient glow behind story image */
+.story-media::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 80%, var(--color-accent-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.story-content {
+  display: flex; flex-direction: column; gap: var(--space-6);
+}
+
+.story-block { max-width: 480px; }
+.story-block .text-caption { display: block; margin-bottom: var(--space-2); }
+.story-block h3 { margin-bottom: var(--space-3); }
+.story-block p { color: var(--color-text-muted); font-size: var(--text-small); line-height: 1.8; }
+
+
+/* ================================================================
+   GALLERY / PRODUCTS
+   [Fix #1: Real product images]
+   [Fix #7: Removed forced translateY stagger]
+   [Fix #9: Section header uses same pattern but with distinct sub-text]
+   [Fix #16: "Add to Bag" replaces ambiguous "Inquire"]
+   [Fix #17: CSS transitions for filter, not binary display:none]
+   [Fix #19: Gallery actions always visible via opacity:1 + keyboard accessible]
+   ================================================================ */
+.gallery-section { overflow: hidden; }
+
+.section-header {
+  max-width: 600px; margin-bottom: var(--space-6);
+}
+.section-header.center { text-align: center; margin-inline: auto; }
+.section-header .text-caption { display: block; margin-bottom: var(--space-2); }
+.section-header h2 { margin-bottom: var(--space-3); }
+.section-header p { color: var(--color-text-muted); font-size: var(--text-small); line-height: 1.8; }
+
+.gallery-filters {
+  display: flex; justify-content: center; gap: var(--space-2);
+  flex-wrap: wrap; margin-bottom: var(--space-6);
+}
+
+/* [Chip component for filters] */
+.chip {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: var(--touch-target); padding: 10px 20px;
+  font-size: var(--text-caption); font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-muted); background: transparent;
+  border: 1px solid transparent; border-radius: var(--radius-full);
+  transition: color var(--dur-fast) var(--ease-smooth),
+              background var(--dur-fast) var(--ease-smooth),
+              border-color var(--dur-fast) var(--ease-smooth);
+  -webkit-tap-highlight-color: transparent;
+}
+.chip:hover { color: var(--color-text); background: var(--color-bg-inset); }
+.chip[aria-pressed="true"] {
+  color: var(--color-text); background: var(--color-bg-inset);
+  border-color: var(--color-border-strong);
+}
+
+.gallery-grid {
+  display: grid; gap: var(--space-3);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px)  { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); } }
+@media (min-width: 1024px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-5); } }
+
+/* [Fix #17: Animated filter transitions] */
+.gallery-item {
+  transition: opacity var(--dur-normal) var(--ease-out),
+              transform var(--dur-normal) var(--ease-out);
+}
+.gallery-item.filtered-out {
+  opacity: 0; transform: scale(0.95);
+  position: absolute; pointer-events: none;
+  width: 0; height: 0; overflow: hidden;
+}
+
+.product-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: transform var(--dur-normal) var(--ease-out),
+              box-shadow var(--dur-normal) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-smooth);
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow), var(--shadow-md);
+  border-color: var(--color-border-strong);
+}
+@media (hover: none) {
+  .product-card:hover { transform: none; box-shadow: none; }
+}
+
+.product-media {
+  aspect-ratio: 3/4; overflow: hidden;
+  position: relative; background: var(--color-bg-overlay);
+}
+.product-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.product-card:hover .product-media img { transform: scale(1.04); }
+@media (hover: none) { .product-card:hover .product-media img { transform: none; } }
+
+/* Badge on product image */
+.product-badge {
+  position: absolute; top: var(--space-3); left: var(--space-3);
+  padding: 4px 10px;
+  font-size: var(--text-micro); font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  background: var(--color-accent-dim); color: var(--color-accent);
+  border-radius: var(--radius-xs);
+  backdrop-filter: blur(10px);
+}
+
+.product-info { padding: var(--space-4); }
+@media (min-width: 768px) { .product-info { padding: var(--space-4); } }
+
+.product-category { display: block; margin-bottom: var(--space-1); }
+.product-name {
+  font-family: var(--font-display);
+  font-size: var(--text-heading); margin-bottom: var(--space-1);
+}
+.product-material {
+  font-size: var(--text-small); color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.price { display: flex; align-items: baseline; gap: var(--space-2); }
+.price-current { font-size: var(--text-body); font-weight: 500; letter-spacing: 0.02em; }
+.price-original { font-size: var(--text-small); color: var(--color-text-faint); text-decoration: line-through; }
+.price-discount { font-size: var(--text-micro); font-weight: 500; color: var(--success); }
+
+/* [Fix #19: Always visible actions, not hover-dependent] */
+.product-actions { margin-top: var(--space-3); }
+
+
+/* ================================================================
+   TRUST / FEATURES
+   [Fix #10: Improved cards with real structure]
+   [Fix #24: Cards with visible peek affordance on mobile]
+   ================================================================ */
+.trust-section { background: var(--color-bg-raised); }
+
+.trust-grid {
+  display: grid; gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .trust-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.feature-card {
+  text-align: center; padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: border-color var(--dur-fast) var(--ease-smooth);
+}
+.feature-card:hover { border-color: var(--color-border-strong); }
+
+.feature-icon {
+  width: 56px; height: 56px;
+  margin: 0 auto var(--space-4);
+  display: grid; place-items: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  transition: background var(--dur-normal) var(--ease-out),
+              border-color var(--dur-normal) var(--ease-out),
+              transform var(--dur-normal) var(--ease-out);
+}
+.feature-card:hover .feature-icon {
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent);
+  transform: scale(1.08);
+}
+
+.feature-card h3 { font-size: var(--text-heading); margin-bottom: var(--space-2); }
+.feature-card p {
+  font-size: var(--text-small); color: var(--color-text-muted);
+  max-width: 28ch; margin-inline: auto;
+}
+
+
+/* ================================================================
+   NEWSLETTER
+   ================================================================ */
+.newsletter-section { }
+
+.newsletter-inner {
+  max-width: 520px; margin-inline: auto; text-align: center;
+}
+
+.input-combo { display: flex; gap: 0; }
+.input-combo .input-field { border-right: none; flex: 1; }
+.input-combo .btn { flex-shrink: 0; }
+
+.input-field {
+  width: 100%; min-height: var(--touch-target);
+  padding: 12px 16px; font-size: var(--text-body);
+  color: var(--color-text); background: var(--color-bg-inset);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-none);
+  transition: border-color var(--dur-fast) var(--ease-smooth),
+              box-shadow var(--dur-fast) var(--ease-smooth),
+              background var(--dur-fast) var(--ease-smooth);
+}
+.input-field::placeholder { color: var(--color-text-faint); }
+.input-field:hover { border-color: var(--color-border-strong); }
+.input-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-dim);
+  background: transparent;
+}
+
+.newsletter-fine {
+  margin-top: var(--space-3);
+  font-size: var(--text-micro); color: var(--color-text-faint);
+}
+
+
+/* ================================================================
+   VISIT / ATELIER
+   [Fix #5: Real links — tel: and map links work now]
+   ================================================================ */
+.visit-grid {
+  display: grid; gap: var(--space-5);
+}
+@media (min-width: 1024px) {
+  .visit-grid { grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: center; }
+}
+
+.visit-media {
+  aspect-ratio: 3/4; overflow: hidden;
+  position: relative; order: -1;
+}
+@media (min-width: 1024px) { .visit-media { order: 1; } }
+
+.visit-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.visit-media:hover img { transform: scale(1.03); }
+
+.visit-media::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 80%, var(--color-accent-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.visit-content { display: flex; flex-direction: column; gap: var(--space-5); }
+
+.visit-actions {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+@media (min-width: 480px) { .visit-actions { flex-direction: row; } }
+
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.footer {
+  padding-block: var(--space-7);
+  padding-bottom: calc(var(--space-7) + var(--safe-bottom));
+  border-top: 1px solid var(--color-border);
+}
+@media (min-width: 768px) { .footer { padding-bottom: var(--space-7); } }
+
+.footer-inner {
+  display: flex; flex-direction: column;
+  align-items: center; gap: var(--space-5);
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: row; justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.footer-brand { display: flex; align-items: center; gap: var(--space-2); }
+.footer-wordmark { font-family: var(--font-display); font-size: 16px; }
+
+.footer-links {
+  display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: center;
+}
+.footer-link {
+  font-size: var(--text-caption); font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-text-muted);
+  min-height: var(--touch-target); display: flex; align-items: center;
+  transition: color var(--dur-fast) var(--ease-smooth);
+}
+.footer-link:hover { color: var(--color-text); }
+.footer-copy { font-size: var(--text-micro); color: var(--color-text-faint); }
+
+
+/* ================================================================
+   SIDE PANEL (replaces full-page modal)
+   [Fix #15: Side panel preserves spatial context]
+   ================================================================ */
+.panel-overlay {
+  position: fixed; inset: 0; z-index: var(--z-overlay);
+  background: rgba(5,5,5,0.7);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-normal) var(--ease-smooth);
+}
+.panel-overlay.show { opacity: 1; pointer-events: auto; }
+
+.panel {
+  position: fixed; top: 0; right: 0; bottom: 0;
+  z-index: var(--z-modal);
+  width: min(500px, 100%);
+  background: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+  display: flex; flex-direction: column;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  transform: translateX(100%);
+  transition: transform var(--dur-normal) var(--ease-out);
+}
+.panel.show { transform: translateX(0); }
+
+.panel-header {
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panel-body { padding: var(--space-4); flex: 1; }
+
+.panel-media {
+  aspect-ratio: 3/4; overflow: hidden;
+  margin: calc(var(--space-4) * -1);
+  margin-bottom: var(--space-4);
+  position: relative; background: var(--color-bg-overlay);
+}
+.panel-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.panel-features {
+  display: flex; flex-direction: column; gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+.panel-feature-item {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  font-size: var(--text-small); color: var(--color-text-muted);
+}
+.panel-feature-dot {
+  width: 6px; height: 6px; background: var(--color-accent);
+  border-radius: 50%; flex-shrink: 0; margin-top: 7px;
+}
+
+.panel-footer {
+  position: sticky; bottom: 0;
+  padding: var(--space-3) var(--space-4);
+  padding-bottom: calc(var(--space-3) + var(--safe-bottom));
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  display: flex; gap: var(--space-3);
+}
+.panel-footer .btn { flex: 1; }
+
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+.toast {
+  position: fixed;
+  bottom: var(--space-4); left: var(--space-3); right: var(--space-3);
+  z-index: var(--z-toast); max-width: 400px;
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  transform: translateY(calc(100% + 40px)); opacity: 0;
+  transition: transform var(--dur-normal) var(--ease-out),
+              opacity var(--dur-normal) var(--ease-out);
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .toast { left: var(--space-5); right: auto; bottom: var(--space-5); }
+}
+.toast.show { transform: translateY(0); opacity: 1; pointer-events: auto; }
+
+.toast-icon {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: var(--radius-full); flex-shrink: 0;
+  background: var(--success-dim); color: var(--success);
+}
+.toast-error .toast-icon { background: var(--error-dim); color: var(--error); }
+.toast-accent .toast-icon { background: var(--color-accent-dim); color: var(--color-accent); }
+
+.toast-body { flex: 1; min-width: 0; }
+.toast-title { font-size: var(--text-small); font-weight: 500; margin-bottom: 2px; }
+.toast-message {
+  font-size: var(--text-caption); color: var(--color-text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+
+/* ================================================================
+   SCROLL REVEAL
+   [Fix #26: Scroll-triggered, not always-running]
+   ================================================================ */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-stagger > .reveal-child {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+}
+.reveal-stagger.visible > .reveal-child { opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > .reveal-child:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.visible > .reveal-child:nth-child(2) { transition-delay: 80ms; }
+.reveal-stagger.visible > .reveal-child:nth-child(3) { transition-delay: 160ms; }
+.reveal-stagger.visible > .reveal-child:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger.visible > .reveal-child:nth-child(5) { transition-delay: 320ms; }
+.reveal-stagger.visible > .reveal-child:nth-child(6) { transition-delay: 400ms; }
+
+
+/* ================================================================
+   REDUCED MOTION [Fix #25 + accessibility]
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal, .reveal-stagger > .reveal-child {
+    opacity: 1; transform: none;
+  }
+  .hero-scroll-line { animation: none; }
+}
+
+
+/* ================================================================
+   PRINT STYLES
+   ================================================================ */
+@media print {
+  .header, .hero-scroll, .hero-promo, .sticky-cta,
+  .toast, .panel, .panel-overlay, .mobile-menu, .mobile-overlay { display: none !important; }
+  body { background: #fff; color: #000; }
+  .section { padding-block: 32px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- [Fix #29: Skip-to-content link for keyboard users] -->
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+
+<!-- ================================================================
+     HEADER
+     [Fix #3: Announcement bar completely removed]
+     [Fix #32: No dismiss needed — it's gone]
+     ================================================================ -->
+<header class="header" role="banner">
+  <div class="header-inner">
+    <a href="#" class="nav-brand" aria-label="Lumière — Home">
+      <div class="nav-mark" aria-hidden="true"></div>
+      <span class="nav-wordmark">Lumière</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#collections" class="nav-link">Collections</a>
+      <a href="#story" class="nav-link">Our Craft</a>
+      <a href="#care" class="nav-link">Care</a>
+      <a href="#visit" class="nav-link">Atelier</a>
+    </nav>
+
+    <div class="nav-actions">
+      <div class="nav-cta-desktop">
+        <a href="tel:+12125550143" class="btn btn-ghost btn-sm">Call Atelier</a>
+        <a href="#collections" class="btn btn-primary btn-sm">Shop Now</a>
+      </div>
+
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </button>
+
+      <button class="btn-icon" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+<!-- ================================================================
+     MOBILE MENU — Side panel style
+     [Fix #20: Focus trap via JS]
+     ================================================================ -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+<nav class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation" aria-hidden="true">
+  <div class="mobile-menu-header">
+    <div class="nav-brand" aria-hidden="true">
+      <div class="nav-mark"></div>
+      <span class="nav-wordmark">Lumière</span>
+    </div>
+    <button class="btn-icon btn-icon-sm" id="mobileClose" type="button" aria-label="Close menu">
+      <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="mobile-menu-links">
+    <a href="#collections" class="mobile-menu-link">Collections</a>
+    <a href="#story" class="mobile-menu-link">Our Craft</a>
+    <a href="#care" class="mobile-menu-link">Care & Service</a>
+    <a href="#visit" class="mobile-menu-link">Visit Atelier</a>
+  </div>
+
+  <!-- [Fix #5: Real tel: link] -->
+  <div class="mobile-menu-footer">
+    <a href="#collections" class="btn btn-primary btn-block">Shop Collection</a>
+    <a href="tel:+12125550143" class="btn btn-ghost btn-block">Call Atelier</a>
+  </div>
+</nav>
+
+
+<!-- ================================================================
+     MAIN CONTENT
+     ================================================================ -->
+<main id="main-content">
+
+  <!-- ============================================================
+       HERO
+       [Fix #1: Real product image]
+       [Fix #2: Cinematic, full-viewport hero]
+       [Fix #3: Inline dismissible promo replaces announcement bar]
+       [Fix #4: Removed fake avatar social proof]
+       [Fix #22: Landscape-safe via object-fit cover]
+       ============================================================ -->
+  <section class="hero" id="hero" aria-label="Hero">
+    <div class="hero-media">
+      <img
+        class="hero-image"
+        src="https://ik.imagekit.io/juxjcwmvp/generated-image-1.webp"
+        alt="Aurora Pavé diamond ring in 14k gold, photographed on dark surface"
+        width="768" height="1024"
+        fetchpriority="high"
+        decoding="async"
+      >
+    </div>
+
+    <div class="hero-content">
+      <!-- [Fix #3: Dismissible inline promo with localStorage persistence] -->
+      <div class="hero-promo" id="heroPromo" role="status">
+        <span>Holiday — Code <strong>LUMIERE15</strong> for 15% off</span>
+        <button class="hero-promo-dismiss" id="herPromoDismiss" type="button" aria-label="Dismiss promotion">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <span class="text-caption text-accent hero-label">Hand-Finished in New York</span>
+
+      <h1 class="text-hero hero-title">Light that <em>lingers</em></h1>
+
+      <div class="hero-actions">
+        <a href="#collections" class="btn btn-primary btn-lg">Explore Collection</a>
+        <a href="#visit" class="btn btn-ghost btn-lg">Visit Atelier</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       STORY
+       [Fix #8: Reduced to 2 focused blocks with real image]
+       ============================================================ -->
+  <section class="story-section section" id="story" aria-labelledby="story-heading">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-media reveal">
+          <img
+            src="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(2).webp?updatedAt=1773167035424"
+            alt="Étoile gold pendant necklace with diamond, close-up detail"
+            width="768" height="1024"
+            loading="lazy" decoding="async"
+          >
+        </div>
+
+        <div class="story-content">
+          <div class="story-block reveal">
+            <span class="text-caption text-accent">Our Philosophy</span>
+            <h3 class="text-title" id="story-heading">Designed to be lived in</h3>
+            <p>Each piece begins as a hand-drawn sketch in our SoHo atelier. We work exclusively with recycled 14k gold and ethically sourced diamonds. Our sterling silver is rhodium-plated for lasting brilliance.</p>
+          </div>
+
+          <div class="story-block reveal">
+            <span class="text-caption text-accent">Our Promise</span>
+            <h3 class="text-title">Lifetime care, complimentary</h3>
+            <p>Every Lumière piece includes unlimited cleaning, re-plating, and minor repairs. Because beautiful things deserve to stay beautiful.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       COLLECTION / GALLERY
+       [Fix #1: Real product photos]
+       [Fix #7: No forced stagger offset]
+       [Fix #16: "Add to Bag" replaces "Inquire"]
+       [Fix #17: Animated filter transitions]
+       [Fix #19: Actions always visible]
+       [Fix #21: Single column on tiny viewports]
+       [Fix #30: aria-pressed set on initial render]
+       ============================================================ -->
+  <section class="gallery-section section" id="collections" aria-labelledby="collections-heading">
+    <div class="container">
+      <div class="section-header center">
+        <span class="text-caption text-accent">The Collection</span>
+        <h2 class="text-display" id="collections-heading">Pieces worth pausing for</h2>
+      </div>
+
+      <div class="gallery-filters" role="group" aria-label="Filter by category">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter="rings" aria-pressed="false">Rings</button>
+        <button class="chip" type="button" data-filter="necklaces" aria-pressed="false">Necklaces</button>
+        <button class="chip" type="button" data-filter="earrings" aria-pressed="false">Earrings</button>
+      </div>
+
+      <div class="gallery-grid reveal-stagger" id="galleryGrid">
+
+        <!-- Product 1: Aurora Pavé Band -->
+        <article class="gallery-item reveal-child" data-category="rings">
+          <div class="product-card"
+               data-name="Aurora Pavé Band"
+               data-price="$245"
+               data-was="$295"
+               data-material="14k Gold Vermeil · Cubic Zirconia"
+               data-desc="A whisper-thin band encircled with micro-pavé stones. Each of the 42 hand-set cubic zirconia catches light from every angle."
+               data-bullets="42 hand-set stones|2mm comfort-fit band|14k gold over sterling silver|Sizes 4–10 available"
+               data-img="https://ik.imagekit.io/juxjcwmvp/generated-image-1.webp">
+            <div class="product-media">
+              <img src="https://ik.imagekit.io/juxjcwmvp/generated-image-1.webp"
+                   alt="Aurora Pavé Band — 14k gold ring with 42 hand-set cubic zirconia stones"
+                   width="768" height="1024" loading="lazy" decoding="async">
+              <span class="product-badge">Holiday Sale</span>
+            </div>
+            <div class="product-info">
+              <span class="text-caption text-muted product-category">Rings</span>
+              <h3 class="product-name">Aurora Pavé Band</h3>
+              <p class="product-material">14k Gold Vermeil · CZ</p>
+              <div class="price">
+                <span class="price-current">$245</span>
+                <span class="price-original">$295</span>
+                <span class="price-discount">-17%</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-primary btn-sm btn-block" type="button" data-quick-view>Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 2: Étoile Diamond Pendant -->
+        <article class="gallery-item reveal-child" data-category="necklaces">
+          <div class="product-card"
+               data-name="Étoile Diamond Pendant"
+               data-price="$425"
+               data-was="$495"
+               data-material="14k Solid Gold · 0.15ct Diamond"
+               data-desc="A single brilliant-cut diamond suspended from our signature fine chain. The bezel setting creates that coveted 'floating' effect."
+               data-bullets="0.15ct VS clarity diamond|Solid 14k gold|Adjustable 16–18 inch chain|Certificate included"
+               data-img="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(2).webp?updatedAt=1773167035424">
+            <div class="product-media">
+              <img src="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(2).webp?updatedAt=1773167035424"
+                   alt="Étoile Diamond Pendant — 14k gold necklace with floating diamond"
+                   width="768" height="1024" loading="lazy" decoding="async">
+              <span class="product-badge">Best Seller</span>
+            </div>
+            <div class="product-info">
+              <span class="text-caption text-muted product-category">Necklaces</span>
+              <h3 class="product-name">Étoile Diamond Pendant</h3>
+              <p class="product-material">14k Solid Gold · Diamond</p>
+              <div class="price">
+                <span class="price-current">$425</span>
+                <span class="price-original">$495</span>
+                <span class="price-discount">-14%</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-primary btn-sm btn-block" type="button" data-quick-view>Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 3: Nova Huggie Hoops -->
+        <article class="gallery-item reveal-child" data-category="earrings">
+          <div class="product-card"
+               data-name="Nova Huggie Hoops"
+               data-price="$165"
+               data-was="$195"
+               data-material="14k Gold Vermeil · Pavé Detail"
+               data-desc="Modern huggies that sit close to the ear with a subtle line of pavé stones along the outer edge."
+               data-bullets="12mm diameter|Hinged click-closure|14k gold over sterling silver|Sold as a pair"
+               data-img="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(3).webp.jpg?updatedAt=1773167035308">
+            <div class="product-media">
+              <img src="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(3).webp.jpg?updatedAt=1773167035308"
+                   alt="Nova Huggie Hoops — gold vermeil earrings with pavé stones"
+                   width="896" height="1152" loading="lazy" decoding="async">
+            </div>
+            <div class="product-info">
+              <span class="text-caption text-muted product-category">Earrings</span>
+              <h3 class="product-name">Nova Huggie Hoops</h3>
+              <p class="product-material">14k Gold Vermeil</p>
+              <div class="price">
+                <span class="price-current">$165</span>
+                <span class="price-original">$195</span>
+                <span class="price-discount">-15%</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-primary btn-sm btn-block" type="button" data-quick-view>Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 4: Celestine Signet -->
+        <article class="gallery-item reveal-child" data-category="rings">
+          <div class="product-card"
+               data-name="Celestine Signet"
+               data-price="$185"
+               data-was="$225"
+               data-material="Sterling Silver · Hand-Polished"
+               data-desc="A modern take on the classic signet—softened edges, a gently domed face, and a mirror polish that catches light like water."
+               data-bullets="10mm × 8mm face|Mirror polish finish|Rhodium-plated|Custom engraving available"
+               data-img="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(1).webp?updatedAt=1773167035328">
+            <div class="product-media">
+              <img src="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(1).webp?updatedAt=1773167035328"
+                   alt="Celestine Signet — sterling silver ring with mirror polish"
+                   width="768" height="1024" loading="lazy" decoding="async">
+              <span class="product-badge">New</span>
+            </div>
+            <div class="product-info">
+              <span class="text-caption text-muted product-category">Rings</span>
+              <h3 class="product-name">Celestine Signet</h3>
+              <p class="product-material">Sterling Silver</p>
+              <div class="price">
+                <span class="price-current">$185</span>
+                <span class="price-original">$225</span>
+                <span class="price-discount">-18%</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-primary btn-sm btn-block" type="button" data-quick-view>Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 5: Lumina Rope Chain -->
+        <article class="gallery-item reveal-child" data-category="necklaces">
+          <div class="product-card"
+               data-name="Lumina Rope Chain"
+               data-price="$145"
+               data-was="$175"
+               data-material="Sterling Silver · Italian-Made"
+               data-desc="A timeless rope chain with unexpected weight and drape. Made by fourth-generation silversmiths in Arezzo, Italy."
+               data-bullets="2mm rope chain|18 inches with extender|Rhodium-plated|Italian craftsmanship"
+               data-img="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(2).webp?updatedAt=1773167035424">
+            <div class="product-media">
+              <img src="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(2).webp?updatedAt=1773167035424"
+                   alt="Lumina Rope Chain — Italian sterling silver necklace"
+                   width="768" height="1024" loading="lazy" decoding="async">
+            </div>
+            <div class="product-info">
+              <span class="text-caption text-muted product-category">Necklaces</span>
+              <h3 class="product-name">Lumina Rope Chain</h3>
+              <p class="product-material">Sterling Silver · Italian</p>
+              <div class="price">
+                <span class="price-current">$145</span>
+                <span class="price-original">$175</span>
+                <span class="price-discount">-17%</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-primary btn-sm btn-block" type="button" data-quick-view>Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 6: Twilight Drop Earrings -->
+        <article class="gallery-item reveal-child" data-category="earrings">
+          <div class="product-card"
+               data-name="Twilight Drop Earrings"
+               data-price="$225"
+               data-was="$265"
+               data-material="Sterling Silver · Freshwater Pearl"
+               data-desc="A sculptural ear wire flows into a single teardrop pearl—movement without weight."
+               data-bullets="8-9mm baroque pearls|Hand-formed silver wire|38mm total drop|Sold as a pair"
+               data-img="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(3).webp.jpg?updatedAt=1773167035308">
+            <div class="product-media">
+              <img src="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(3).webp.jpg?updatedAt=1773167035308"
+                   alt="Twilight Drop Earrings — sterling silver with baroque pearl"
+                   width="896" height="1152" loading="lazy" decoding="async">
+              <span class="product-badge">Holiday Sale</span>
+            </div>
+            <div class="product-info">
+              <span class="text-caption text-muted product-category">Earrings</span>
+              <h3 class="product-name">Twilight Drop Earrings</h3>
+              <p class="product-material">Silver · Pearl</p>
+              <div class="price">
+                <span class="price-current">$225</span>
+                <span class="price-original">$265</span>
+                <span class="price-discount">-15%</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-primary btn-sm btn-block" type="button" data-quick-view>Add to Bag</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       TRUST / WHY LUMIÈRE
+       [Fix #10: Structured feature cards, not generic icons]
+       [Fix #24: Proper grid, no horizontal scroll without affordance]
+       ============================================================ -->
+  <section class="trust-section section" id="care" aria-labelledby="trust-heading">
+    <div class="container">
+      <div class="section-header center">
+        <span class="text-caption text-accent">Why Lumière</span>
+        <h2 class="text-title" id="trust-heading">Crafted with intention</h2>
+      </div>
+
+      <div class="trust-grid reveal-stagger">
+        <div class="feature-card reveal-child">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z"/><path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Ethically Sourced</h3>
+          <p>Recycled gold, conflict-free diamonds, full supply chain transparency.</p>
+        </div>
+
+        <div class="feature-card reveal-child">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20 7l-8-4-8 4v10l8 4 8-4V7z"/><path d="M12 11v10M4 7l8 4 8-4"/>
+            </svg>
+          </div>
+          <h3>Signature Packaging</h3>
+          <p>Linen box with polishing cloth, ready to gift.</p>
+        </div>
+
+        <div class="feature-card reveal-child">
+          <div class="feature-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <h3>Same-Day Pickup</h3>
+          <p>Order by 2pm, collect from SoHo by 6pm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       NEWSLETTER
+       ============================================================ -->
+  <section class="newsletter-section section" aria-labelledby="newsletter-heading">
+    <div class="container">
+      <div class="newsletter-inner">
+        <span class="text-caption text-accent" style="display:block;margin-bottom:var(--space-2);">Inner Circle</span>
+        <h2 class="text-title" id="newsletter-heading" style="margin-bottom:var(--space-3);">Early access to private viewings</h2>
+
+        <form class="input-combo" id="newsletterForm" novalidate style="margin-top:var(--space-5);">
+          <label for="emailInput" class="skip-link" style="position:absolute;">Email address</label>
+          <input type="email" class="input-field" id="emailInput" name="email"
+                 placeholder="your@email.com" autocomplete="email" required
+                 aria-label="Email address">
+          <button type="submit" class="btn btn-primary">Join</button>
+        </form>
+
+        <p class="newsletter-fine">New collections and private sale invitations. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       INVERTED SECTION — Visual rhythm break
+       [Fix #6: Dark/light alternation creates visual rhythm]
+       ============================================================ -->
+  <section class="section section-invert" aria-labelledby="lifetime-heading">
+    <div class="container">
+      <div class="section-header center">
+        <span class="text-caption" style="color:var(--color-accent);">Lifetime Promise</span>
+        <h2 class="text-display" id="lifetime-heading">Your piece, forever</h2>
+        <p style="color:inherit;opacity:0.7;">Every Lumière piece includes unlimited cleaning, re-plating, and minor repairs. Because beautiful things deserve to stay beautiful.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       VISIT / ATELIER
+       [Fix #5: Real tel: and map links]
+       ============================================================ -->
+  <section class="section" id="visit" aria-labelledby="visit-heading">
+    <div class="container">
+      <div class="visit-grid">
+        <div class="visit-content">
+          <div class="story-block reveal">
+            <span class="text-caption text-accent">The Atelier</span>
+            <h3 class="text-title" id="visit-heading">Where every piece begins</h3>
+            <p>Our SoHo studio doubles as a private showroom. See the making process, try pieces in natural light, and work with our stylists.</p>
+          </div>
+
+          <div class="story-block reveal">
+            <span class="text-caption text-accent">Visit Us</span>
+            <h3 class="text-heading">143 Wooster Street, New York</h3>
+            <p>Tuesday–Saturday, 11am–7pm<br>Sunday by appointment</p>
+
+            <!-- [Fix #5: Real working links instead of toast-faking] -->
+            <div class="visit-actions">
+              <a href="https://maps.google.com/?q=143+Wooster+Street+New+York+NY+10012"
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn btn-primary">
+                Get Directions
+              </a>
+              <a href="tel:+12125550143" class="btn btn-ghost">
+                Call Atelier
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="visit-media reveal">
+          <img
+            src="https://ik.imagekit.io/juxjcwmvp/generated-image-1%20(1).webp?updatedAt=1773167035328"
+            alt="Celestine Signet ring in our SoHo atelier"
+            width="768" height="1024" loading="lazy" decoding="async"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+
+<!-- ================================================================
+     FOOTER
+     ================================================================ -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-mark" style="width:20px;height:20px;" aria-hidden="true"></div>
+        <span class="footer-wordmark">Lumière Jewels</span>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#collections" class="footer-link">Collection</a>
+        <a href="#care" class="footer-link">Care</a>
+        <a href="#visit" class="footer-link">Atelier</a>
+        <button type="button" class="footer-link" id="backTop">Back to Top ↑</button>
+      </nav>
+
+      <span class="footer-copy">© <span id="footerYear"></span> Lumière Jewels. Handcrafted in New York.</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ================================================================
+     SIDE PANEL (Product Quick View)
+     [Fix #15: Side panel instead of full-page modal]
+     ================================================================ -->
+<div class="panel-overlay" id="panelOverlay" aria-hidden="true"></div>
+<aside class="panel" id="productPanel" role="dialog" aria-modal="true" aria-label="Product details" aria-hidden="true">
+  <div class="panel-header">
+    <span class="text-caption text-accent" id="panelCategory">Category</span>
+    <button class="btn-icon btn-icon-sm" id="panelClose" type="button" aria-label="Close panel">
+      <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <div class="panel-body">
+    <div class="panel-media">
+      <img id="panelImage" src="" alt="" width="768" height="1024">
+    </div>
+
+    <span class="text-caption text-accent" style="display:block;margin-bottom:var(--space-1);">Holiday Collection</span>
+    <h2 class="text-title" id="panelTitle" style="margin-bottom:var(--space-2);">Product Name</h2>
+    <p class="text-small text-muted" id="panelMaterial" style="margin-bottom:var(--space-3);">Material</p>
+
+    <div class="price" style="margin-bottom:var(--space-4);">
+      <span class="price-current" style="font-size:22px;" id="panelPrice">$0</span>
+      <span class="price-original" id="panelWas">$0</span>
+    </div>
+
+    <p class="text-small text-muted" id="panelDesc" style="line-height:1.8;margin-bottom:var(--space-3);">Description</p>
+
+    <div class="panel-features" id="panelFeatures"></div>
+  </div>
+
+  <div class="panel-footer">
+    <button class="btn btn-primary" id="panelAddBag" type="button">Add to Bag</button>
+    <button class="btn btn-ghost" id="panelReserve" type="button">Reserve at Atelier</button>
+  </div>
+</aside>
+
+
+<!-- ================================================================
+     TOAST
+     ================================================================ -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <div class="toast-icon">
+    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+  </div>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle">Success</div>
+    <div class="toast-message" id="toastMsg">Action completed.</div>
+  </div>
+</div>
+
+
+<!-- ================================================================
+     JAVASCRIPT
+     ================================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+  // ---- Year ----
+  const yearEl = $('#footerYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+
+  // ================================================================
+  // THEME TOGGLE — with system preference + localStorage
+  // ================================================================
+  const html = document.documentElement;
+  const themeToggle = $('#themeToggle');
+  const THEME_KEY = 'lumiere-theme';
+
+  function setTheme(t) {
+    html.setAttribute('data-theme', t);
+    localStorage.setItem(THEME_KEY, t);
+    if (themeToggle) themeToggle.setAttribute('aria-label', `Switch to ${t === 'dark' ? 'light' : 'dark'} mode`);
+  }
+
+  // Initialize
+  const stored = localStorage.getItem(THEME_KEY);
+  setTheme(stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+
+  themeToggle?.addEventListener('click', () => {
+    setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem(THEME_KEY)) setTheme(e.matches ? 'dark' : 'light');
+  });
+
+
+  // ================================================================
+  // HERO PROMO — Dismissible with localStorage
+  // [Fix #3 + #32: Replaces announcement bar, remembers dismissal]
+  // ================================================================
+  const heroPromo = $('#heroPromo');
+  const promoDismiss = $('#herPromoDismiss');
+  const PROMO_KEY = 'lumiere-promo-dismissed';
+
+  if (localStorage.getItem(PROMO_KEY) === 'true' && heroPromo) {
+    heroPromo.classList.add('dismissed');
+  }
+
+  promoDismiss?.addEventListener('click', () => {
+    heroPromo?.classList.add('dismissed');
+    localStorage.setItem(PROMO_KEY, 'true');
+  });
+
+
+  // ================================================================
+  // MOBILE MENU with focus trap [Fix #20]
+  // ================================================================
+  const mobileToggle = $('#mobileToggle');
+  const mobileClose = $('#mobileClose');
+  const mobileMenu = $('#mobileMenu');
+  const mobileOverlay = $('#mobileOverlay');
+  let lastFocused = null;
+
+  function openMobileMenu() {
+    lastFocused = document.activeElement;
+    mobileMenu?.classList.add('show');
+    mobileOverlay?.classList.add('show');
+    mobileMenu?.setAttribute('aria-hidden', 'false');
+    mobileToggle?.setAttribute('aria-expanded', 'true');
+    html.classList.add('scroll-locked');
+    mobileClose?.focus();
+
+    // Focus trap [Fix #20]
+    document.addEventListener('keydown', trapMobileFocus);
+  }
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.remove('show');
+    mobileOverlay?.classList.remove('show');
+    mobileMenu?.setAttribute('aria-hidden', 'true');
+    mobileToggle?.setAttribute('aria-expanded', 'false');
+    html.classList.remove('scroll-locked');
+    document.removeEventListener('keydown', trapMobileFocus);
+    if (lastFocused?.focus) lastFocused.focus();
+  }
+
+  function trapMobileFocus(e) {
+    if (e.key !== 'Tab' || !mobileMenu) return;
+    const focusable = mobileMenu.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  mobileToggle?.addEventListener('click', openMobileMenu);
+  mobileClose?.addEventListener('click', closeMobileMenu);
+  mobileOverlay?.addEventListener('click', closeMobileMenu);
+
+  $$('.mobile-menu-link').forEach(link => {
+    link.addEventListener('click', () => { closeMobileMenu(); });
+  });
+  $$('.mobile-menu-footer .btn').forEach(btn => {
+    btn.addEventListener('click', () => { closeMobileMenu(); });
+  });
+
+
+  // ================================================================
+  // GALLERY FILTERS [Fix #17: Animated transitions, not display:none]
+  // [Fix #30: aria-pressed initialized in HTML]
+  // ================================================================
+  const filterBtns = $$('.chip[data-filter]');
+  const galleryItems = $$('.gallery-item');
+
+  function setFilter(filter) {
+    filterBtns.forEach(btn => {
+      btn.setAttribute('aria-pressed', btn.dataset.filter === filter ? 'true' : 'false');
+    });
+
+    galleryItems.forEach(item => {
+      const cat = item.dataset.category;
+      const hide = filter !== 'all' && cat !== filter;
+      item.classList.toggle('filtered-out', hide);
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => setFilter(btn.dataset.filter));
+  });
+
+
+  // ================================================================
+  // PRODUCT PANEL [Fix #15: Side panel replaces full-page modal]
+  // [Fix #16: "Add to Bag" is the primary CTA]
+  // ================================================================
+  const panel = $('#productPanel');
+  const panelOverlay = $('#panelOverlay');
+  const panelClose = $('#panelClose');
+  const panelTitle = $('#panelTitle');
+  const panelCategory = $('#panelCategory');
+  const panelImage = $('#panelImage');
+  const panelMaterial = $('#panelMaterial');
+  const panelPrice = $('#panelPrice');
+  const panelWas = $('#panelWas');
+  const panelDesc = $('#panelDesc');
+  const panelFeatures = $('#panelFeatures');
+  const panelAddBag = $('#panelAddBag');
+  const panelReserve = $('#panelReserve');
+  let panelLastFocused = null;
+
+  function openPanel(card) {
+    if (!card || !panel) return;
+    panelLastFocused = document.activeElement;
+
+    const name = card.dataset.name || 'Product';
+    const price = card.dataset.price || '';
+    const was = card.dataset.was || '';
+    const material = card.dataset.material || '';
+    const desc = card.dataset.desc || '';
+    const img = card.dataset.img || '';
+    const cat = card.closest('.gallery-item')?.dataset.category || '';
+    const bullets = (card.dataset.bullets || '').split('|').filter(Boolean);
+
+    if (panelTitle) panelTitle.textContent = name;
+    if (panelCategory) panelCategory.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+    if (panelImage) { panelImage.src = img; panelImage.alt = name; }
+    if (panelMaterial) panelMaterial.textContent = material;
+    if (panelPrice) panelPrice.textContent = price;
+    if (panelWas) { panelWas.textContent = was; panelWas.style.display = was ? 'inline' : 'none'; }
+    if (panelDesc) panelDesc.textContent = desc;
+
+    if (panelFeatures) {
+      panelFeatures.innerHTML = '';
+      bullets.forEach(b => {
+        const div = document.createElement('div');
+        div.className = 'panel-feature-item';
+        div.innerHTML = `<span class="panel-feature-dot" aria-hidden="true"></span><span>${b.trim()}</span>`;
+        panelFeatures.appendChild(div);
+      });
+    }
+
+    if (panelAddBag) panelAddBag.textContent = `Add to Bag — ${price}`;
+
+    panel.classList.add('show');
+    panelOverlay?.classList.add('show');
+    panel.setAttribute('aria-hidden', 'false');
+    html.classList.add('scroll-locked');
+    panel.scrollTop = 0;
+    panelClose?.focus();
+
+    document.addEventListener('keydown', trapPanelFocus);
+  }
+
+  function closePanel() {
+    panel?.classList.remove('show');
+    panelOverlay?.classList.remove('show');
+    panel?.setAttribute('aria-hidden', 'true');
+    html.classList.remove('scroll-locked');
+    document.removeEventListener('keydown', trapPanelFocus);
+    if (panelLastFocused?.focus) panelLastFocused.focus();
+  }
+
+  function trapPanelFocus(e) {
+    if (e.key === 'Escape') { closePanel(); return; }
+    if (e.key !== 'Tab' || !panel) return;
+    const focusable = panel.querySelectorAll('button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  // Delegate click on [data-quick-view] buttons
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-quick-view]');
+    if (btn) {
+      const card = btn.closest('.product-card');
+      if (card) openPanel(card);
+    }
+  });
+
+  panelClose?.addEventListener('click', closePanel);
+  panelOverlay?.addEventListener('click', closePanel);
+
+  // Escape for mobile menu too
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (panel?.classList.contains('show')) closePanel();
+      else if (mobileMenu?.classList.contains('show')) closeMobileMenu();
+    }
+  });
+
+
+  // ================================================================
+  // TOAST
+  // ================================================================
+  const toast = $('#toast');
+  const toastTitle = $('#toastTitle');
+  const toastMsg = $('#toastMsg');
+  let toastTimer = null;
+
+  function showToast(title, message) {
+    if (!toast) return;
+    if (toastTitle) toastTitle.textContent = title;
+    if (toastMsg) toastMsg.textContent = message;
+    toast.classList.remove('show');
+    void toast.offsetWidth; // force reflow
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  panelAddBag?.addEventListener('click', () => {
+    const name = panelTitle?.textContent || 'Item';
+    const price = panelPrice?.textContent || '';
+    showToast('Added to Bag', `${name} — ${price}`);
+    closePanel();
+  });
+
+  panelReserve?.addEventListener('click', () => {
+    showToast('Reserved', 'Your piece will be waiting at our SoHo atelier.');
+    closePanel();
+  });
+
+
+  // ================================================================
+  // NEWSLETTER
+  // ================================================================
+  const newsletterForm = $('#newsletterForm');
+  const emailInput = $('#emailInput');
+
+  newsletterForm?.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = emailInput?.value?.trim() || '';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showToast('Invalid Email', 'Please enter a valid email address.');
+      emailInput?.focus();
+      return;
+    }
+    if (emailInput) emailInput.value = '';
+    showToast('Welcome', "You're on the list for private viewings.");
+  });
+
+
+  // ================================================================
+  // SCROLL REVEAL [Fix #26: IntersectionObserver, triggered once]
+  // [Fix #25: No infinite animations]
+  // ================================================================
+  const revealEls = $$('.reveal, .reveal-stagger');
+
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+  } else {
+    // Immediately show all for reduced motion or no IO support
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+
+  // ================================================================
+  // NAVIGATION — Smooth scroll for anchors
+  // ================================================================
+  $$('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      const href = anchor.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = $(href);
+      if (target) {
+        e.preventDefault();
+        closeMobileMenu();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  $('#backTop')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+
+  // ================================================================
+  // HERO PARALLAX (subtle, scroll-linked, no infinite loop)
+  // [Fix #25 + #28: Proper scroll-driven, not CSS animation loop]
+  // ================================================================
+  const heroImage = $('.hero-image');
+  if (heroImage && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const heroH = window.innerHeight;
+          if (scrollY < heroH) {
+            heroImage.style.transform = `scale(1.05) translateY(${scrollY * 0.15}px)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+})();
+</script>
+
+</body>
+</html>
