@@ -1,0 +1,42 @@
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol class="crumbs__list">
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Bag</span></li>
+        </ol>
+      </nav>
+
+      <header class="shead shead--page">
+        <p class="kicker kicker--rule">Your bag</p>
+        <h1>On the tray</h1>
+        <p class="lead">This is a list, not a checkout. We don&rsquo;t take money on this site; the atelier does,
+           in person or by invoice, which is also how you get a true ring fit. Your list is saved in this
+           browser only, nothing leaves your device until you send it.</p>
+      </header>
+
+      <noscript>
+        <p class="callout"><strong>JavaScript is off.</strong> Your saved list lives in this browser, so it
+           can only be read with scripting enabled. No harm done: <a class="quiet" href="/contact/">write
+           the pieces to the bench directly</a> and we&rsquo;ll hold them.</p>
+      </noscript>
+
+      <section data-bag hidden>
+        <ul class="baglist" data-bag-list></ul>
+
+        <div class="bagbar" aria-live="polite">
+          <p class="bagbar__sum"><span data-bag-count>0</span> <span data-bag-plural>pieces</span> · Subtotal <strong class="num" data-bag-total>$0</strong> <span class="bagbar__note">Holiday pricing already applied. Code LUMIERE15 takes 15% more at the counter.</span></p>
+          <div class="bagbar__cta">
+            <a class="btn btn--pri" href="/contact/?from=bag" data-send-bag>Send this list to the bench</a>
+            <button class="btn btn--ghost" type="button" data-clear-bag>Clear the tray</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="emptybig" data-bag-empty>
+        <p class="emptybig__mark" aria-hidden="true">○</p>
+        <h2>The tray is empty</h2>
+        <p>Nothing here is fake-scarce and nothing waits forever: when a run sells, the next one goes on
+           the calendar at the bench.</p>
+        <p><a class="btn btn--pri" href="/collection/">Browse the collection</a></p>
+      </section>
+
+      <script type="application/json" id="pieces">{{BAGDATA}}</script>

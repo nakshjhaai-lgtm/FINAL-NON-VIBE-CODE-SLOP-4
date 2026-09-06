@@ -1,0 +1,55 @@
+# Lumière Jewels. Static publish dir at repo root: zero build, zero bundler,
+# hand-written HTML so the first byte is the content (see the SEO/perf rules).
+# Deploy: point Netlify at this repo. Publish directory: the repo root.
+# Done. (Rate limiting + form spam protection: enable in Netlify UI >
+# Site configuration if you want more than the built-in form defenses.)
+
+[build]
+  publish = "."
+
+# Default to a production-style environment if a build is ever attached.
+[build.environment]
+  NODE_VERSION = "20"
+
+# HTTPS is enforced automatically by Netlify (hardening #19); HSTS below
+# is the site's own half of the bargain.
+
+# Custom branded 404 (fixes checklist #14, anti-vibe #1).
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+# Security headers (hardening #18). No inline scripts/styles are used
+# anywhere, so the CSP can stay strict with no inline escape hatch.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'self';
+      style-src 'self';
+      img-src 'self' https://ik.imagekit.io https://*.google-analytics.com;
+      font-src 'self';
+      connect-src 'self' https://*.google-analytics.com https://analytics.google.com;
+      manifest-src 'self';
+      frame-src https://www.openstreetmap.org;
+      frame-ancestors 'none';
+      base-uri 'self';
+      form-action 'self';
+      object-src 'none';
+      upgrade-insecure-requests"""
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), interest-cohort=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Resource-Policy = "same-origin"
+
+# Self-hosted fonts and images are versionless-but-small; one week is honest
+# and lets brand swaps roll out without purge games.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

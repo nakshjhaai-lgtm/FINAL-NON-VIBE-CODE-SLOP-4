@@ -1,0 +1,32 @@
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol class="crumbs__list">
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Search</span></li>
+        </ol>
+      </nav>
+
+      <header class="shead shead--page">
+        <p class="kicker kicker--rule">Search the ledger</p>
+        <h1>Find a piece, a policy, an answer</h1>
+        <form class="find find--big js-only" data-search-form role="search" action="/search/" method="get">
+          <label class="sr-only" for="q">Search Lumière Jewels</label>
+          <svg class="find__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+          <input id="q" name="q" type="search" placeholder="pavé, resizing, Wooster, pearl…" autocomplete="off" spellcheck="false" data-search-input>
+          <button class="btn btn--pri" type="submit">Search</button>
+        </form>
+      </header>
+
+      <p class="fcount js-only" data-search-status role="status" aria-live="polite" hidden></p>
+
+      <noscript><p class="callout">Search needs a little JavaScript; the whole site is also just six
+        pages, so <a class="quiet" href="/collection/">the collection</a>,
+        <a class="quiet" href="/care/">care</a> and <a class="quiet" href="/atelier/">the atelier page</a>
+        cover most questions without it.</p></noscript>
+
+      <ul class="results" data-search-results></ul>
+
+      <p class="search-empty" data-search-empty hidden>
+        Nothing in the ledger matches that. Try a piece name, a material, or
+        <a class="quiet" href="/contact/?topic=general">ask the bench directly</a>;
+        if we don&rsquo;t have it, we&rsquo;ll say so in one line.
+      </p>

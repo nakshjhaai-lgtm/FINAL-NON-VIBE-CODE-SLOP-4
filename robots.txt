@@ -1,0 +1,5 @@
+# Lumière Jewels
+User-agent: *
+Allow: /
+
+Sitemap: https://lumierejewels.com/sitemap.xml
