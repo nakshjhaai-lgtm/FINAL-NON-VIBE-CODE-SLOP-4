@@ -5,6 +5,10 @@
 # Site configuration if you want more than the built-in form defenses.)
 
 [build]
+  # The composer runs at deploy time (zero dependencies, plain Node), so the
+  # fingerprinted asset URLs below are generated even when main was edited
+  # from the GitHub web UI with no local build available.
+  command = "node tools/build.mjs"
   publish = "."
 
 # Default to a production-style environment if a build is ever attached.
@@ -47,17 +51,20 @@
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-origin"
 
-# Self-hosted fonts and images are versionless-but-small; one week is honest
-# and lets brand swaps roll out without purge games.
+# Caching strategy, the textbook version. CSS/JS URLs carry a content hash
+# (see tools/build.mjs): when the file changes, the URL changes, so these can
+# be cached for a year, immutable, and can never go stale. Fonts and images
+# keep unversioned URLs, so they get an honest week. The search index holds
+# build output, so it revalidates like HTML does by default.
 [[headers]]
   for = "/assets/css/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/assets/js/*"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/assets/fonts/*"
@@ -68,3 +75,8 @@
   for = "/assets/img/*"
   [headers.values]
     Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/assets/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
