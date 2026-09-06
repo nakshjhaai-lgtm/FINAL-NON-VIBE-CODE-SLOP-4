@@ -168,6 +168,20 @@ for (const p of PRODUCTS) {
   ok(page.src.includes(`$${p.price}`), `${p.slug}: sale price rendered`);
   const off = Math.round(((p.was - p.price) / p.was) * 100);
   ok(page.src.includes(`${off}% off`), `${p.slug}: discount label matches math`);
+  ok(page.src.includes("/shipping/"), `${p.slug}: links the shipping & returns policy`);
+  ok(page.src.includes('"availability":"https://schema.org/InStock"'), `${p.slug}: offer schema marks stock`);
+  ok(page.src.includes('"@type":"MerchantReturnPolicy"'), `${p.slug}: offer schema carries the return policy`);
+  ok(page.src.includes(`src="${p.img}"`), `${p.slug}: shows the photograph registered for it, not another piece's`);
+}
+{
+  // Lumina and Twilight used to borrow other pieces' CDN photos; they must
+  // ship their own local studio shots and not a single image from that host.
+  const lumina = pages.find((x) => x.rel === "/product/lumina-rope-chain/index.html");
+  const twilight = pages.find((x) => x.rel === "/product/twilight-drop-earrings/index.html");
+  ok(lumina && lumina.src.includes("/assets/img/products/lumina-rope-chain.jpg"), "lumina: uses its own local studio shot");
+  ok(twilight && twilight.src.includes("/assets/img/products/twilight-drop-earrings.jpg"), "twilight: uses its own local studio shot");
+  ok(lumina && !/(?:src|url)\W{0,4}https:\/\/ik\.imagekit\.io/.test(lumina.src), "lumina: no borrowed CDN photo");
+  ok(twilight && !/(?:src|url)\W{0,4}https:\/\/ik\.imagekit\.io/.test(twilight.src), "twilight: no borrowed CDN photo");
 }
 // chip counts (2/2/2) agree with the data
 for (const c of ["rings", "necklaces", "earrings"]) {
@@ -180,8 +194,23 @@ for (const c of ["rings", "necklaces", "earrings"]) {
 const css = readFileSync(join(ROOT, "assets/css/site.css"), "utf8");
 ok(!/transition:\s*all/.test(css), "css: no transition:all");
 ok(!/body\s*\{[^}]*overflow-x:\s*hidden/.test(css), "css: horizontal overflow fixed, not hidden (clip allowed)");
-ok(/overflow-wrap:\s*break-word/.test(css), "css: long copy/URLs wrap instead of widening the page");
+ok(/overflow-wrap:\s*(anywhere|break-word)/.test(css), "css: long copy/URLs wrap instead of widening the page");
+ok(/body\s*\{[^}]*overflow-wrap:\s*anywhere/.test(css), "css: body wraps long words/URLs anywhere (overflow hardening)");
+ok(/td,\s*th\s*\{[^}]*overflow-wrap:\s*anywhere/.test(css), "css: table cells wrap anywhere so tables can never widen the page");
+ok(/html\s*\{[^}]*max-width:\s*100%[^}]*overflow-x:\s*clip/.test(css), "css: html caps width at 100% and clips x overflow");
+ok(/body\s*\{[^}]*max-width:\s*100%/.test(css), "css: body caps width at 100%");
 ok(/grid-template-columns:\s*minmax\(0,\s*1fr\)/.test(css), "css: grids use minmax(0,1fr) tracks so tables/pre/iframes can shrink");
+{
+  // Every grid-like container gets a base single column of minmax(0,1fr);
+  // the regression we guard against is an implicit `auto` track sized by a table.
+  const block = css.match(/\.main \*,[\s\S]{0,2400}?grid-template-columns:\s*minmax\(0,\s*1fr\);\s*\}/);
+  ok(!!block, "css: single-column grid hardening block exists");
+  for (const sel of [".grid", ".gridbox", ".split", ".stack", ".cols", ".columns", ".articles", ".cards", ".hero", ".strip", ".svc__list", ".visit-grid", ".mail__grid", ".form-grid", ".form__cols", ".piece", ".assure", ".callout", ".two-col", ".menu__links", ".ftr__col"]) {
+    const re = new RegExp(sel.replace(".", "\\.") + "\\s*[,{]");
+    ok(block && re.test(block[0]), `css: ${sel} has a minmax(0,1fr) base track`);
+  }
+  ok(/\.hours\s*\{\s*table-layout:\s*fixed/.test(css), "css: atelier hours table uses fixed layout");
+}
 ok(!/box-shadow:[^;]*(glow|0 0 \d+px rgba\(2\d\d)/.test(css), "css: no decorative glow shadows");
 const radii = new Set([...css.matchAll(/--r-\w+:\s*([^;]+);/g)].map((m) => m[1]));
 ok(radii.size <= 3, `css: radius system has ${radii.size} values, max 3`);
