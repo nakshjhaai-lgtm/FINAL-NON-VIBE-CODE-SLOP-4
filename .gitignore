@@ -1,0 +1,19 @@
+# Local secrets stay local (vulnerability checklist #1: no .env, ever)
+.env
+.env.*
+*.pem
+*.key
+
+# Editor/OS noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# No site dependencies exist; if tooling is added later it stays out of git
+node_modules/
+
+# Throwaway
+*.log
+.cache/
+dist/

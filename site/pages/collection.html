@@ -1,0 +1,64 @@
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol class="crumbs__list">
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Collection</span></li>
+        </ol>
+      </nav>
+
+      <header class="shead shead--page">
+        <p class="kicker kicker--rule">The collection</p>
+        <h1>Pieces worth pausing for</h1>
+        <p class="lead">Six pieces, three categories, one bench. Filter the ledger or search it;
+           everything you pick can be tried on in SoHo this week. Holiday pricing is already applied.</p>
+      </header>
+
+      <form class="gridbox" data-filters method="get" action="/collection/">
+        <div class="fbar">
+          <fieldset class="chips" aria-label="Filter by category">
+            <legend class="sr-only">Category</legend>
+            <label class="chip"><input id="filter-all" type="radio" name="filter" value="all" checked>All <span class="chip__n" data-count="all">6</span></label>
+            <label class="chip"><input id="filter-rings" type="radio" name="filter" value="rings">Rings <span class="chip__n" data-count="rings">2</span></label>
+            <label class="chip"><input id="filter-necklaces" type="radio" name="filter" value="necklaces">Necklaces <span class="chip__n" data-count="necklaces">2</span></label>
+            <label class="chip"><input id="filter-earrings" type="radio" name="filter" value="earrings">Earrings <span class="chip__n" data-count="earrings">2</span></label>
+          </fieldset>
+          <div class="fbar__right js-only">
+            <label class="sr-only" for="find">Search pieces</label>
+            <span class="find">
+              <svg class="find__i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+              <input id="find" name="q" type="search" placeholder="Search: pavé, pearl, gold…" autocomplete="off" spellcheck="false">
+            </span>
+            <label class="sr-only" for="sort">Sort pieces</label>
+            <span class="select">
+              <select id="sort" name="sort">
+                <option value="curated">Curated order</option>
+                <option value="price-asc">Price: low to high</option>
+                <option value="price-desc">Price: high to low</option>
+              </select>
+            </span>
+          </div>
+        </div>
+
+        <p class="fcount js-only" data-fcount aria-live="polite" hidden>Showing 6 of 6 pieces.</p>
+
+        <div class="grid" id="items">
+{{CARDS}}
+          <p class="empty" data-empty hidden>
+            <strong>No pieces match that.</strong><br>
+            This is a small house; six is all the ledger holds right now.
+            <a class="quiet" href="/collection/">Reset the filters</a> or
+            <a class="quiet" href="/contact/?topic=general">ask for something specific</a>.
+          </p>
+        </div>
+      </form>
+
+      <aside class="callout" aria-labelledby="try-title">
+        <div>
+          <h2 id="try-title">Try before you decide</h2>
+          <p>The studio at 143 Wooster holds every piece in this grid, in daylight, on a tray,
+             with a stylist who has nothing to upsell you. Tuesday to Saturday, 11am&ndash;7pm.</p>
+        </div>
+        <p class="callout__cta">
+          <a class="btn btn--pri" href="/contact/?topic=viewing">Book a viewing</a>
+          <a class="btn btn--ghost" href="/atelier/#visit">Directions &amp; hours</a>
+        </p>
+      </aside>

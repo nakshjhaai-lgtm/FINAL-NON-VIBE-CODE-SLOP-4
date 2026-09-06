@@ -1,0 +1,103 @@
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <ol class="crumbs__list">
+          <li><a href="/">Home</a></li>
+          <li><span aria-current="page">Inquire</span></li>
+        </ol>
+      </nav>
+
+      <header class="shead shead--page">
+        <p class="kicker kicker--rule">Inquiries</p>
+        <h1>Talk to the bench</h1>
+        <p class="lead">A piece, a fitting, a repair or a Sunday viewing: one form, one person,
+           a reply within 1 business day, usually the same afternoon. Nothing here is a chatbot.</p>
+      </header>
+
+      <script type="application/json" id="pieces">{{BAGDATA}}</script>
+      <div class="form-grid">
+        <form class="form" name="inquire" method="POST" action="/thanks/?form=inquire" data-netlify="true" netlify-honeypot="_gotcha" data-form novalidate>
+          <input type="hidden" name="form-name" value="inquire">
+          <input type="hidden" name="page" data-utm-page>
+          <input type="hidden" name="utm_source" data-utm="utm_source">
+          <input type="hidden" name="utm_medium" data-utm="utm_medium">
+          <input type="hidden" name="utm_campaign" data-utm="utm_campaign">
+          <input type="hidden" name="piece" data-piece-field>
+          <input type="hidden" name="selection" data-bag-field>
+
+          <fieldset class="form__topic">
+            <legend>What is this about?</legend>
+            <div class="radio-row">
+              <label class="radio"><input type="radio" name="topic" value="A piece" checked><span>A piece</span></label>
+              <label class="radio"><input type="radio" name="topic" value="A private viewing"><span>A private viewing</span></label>
+              <label class="radio"><input type="radio" name="topic" value="Care &amp; repairs"><span>Care &amp; repairs</span></label>
+              <label class="radio"><input type="radio" name="topic" value="Delivery"><span>Delivery</span></label>
+            </div>
+          </fieldset>
+
+          <p class="piece-note" data-piece-note hidden></p>
+          <ul class="bag-note" data-bag-note hidden></ul>
+
+          <div class="form__cols">
+            <div class="field">
+              <label class="field__label" for="name">Name</label>
+              <input class="field__input" id="name" name="name" type="text" autocomplete="name" placeholder="Your full name…" required maxlength="120">
+              <span class="field__err" data-err="name" role="alert"></span>
+            </div>
+            <div class="field">
+              <label class="field__label" for="email">Email</label>
+              <input class="field__input" id="email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="you@email.com…" required maxlength="160">
+              <span class="field__err" data-err="email" role="alert"></span>
+            </div>
+            <div class="field">
+              <label class="field__label" for="phone">Phone <span class="field__opt">(optional)</span></label>
+              <input class="field__input" id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+1 (212) 555-0134" maxlength="32">
+              <span class="field__hint">Only if you would rather we call back.</span>
+              <span class="field__err" data-err="phone" role="alert"></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="message">Message</label>
+            <textarea class="field__input" id="message" name="message" rows="6" required maxlength="4000" placeholder="The piece, the date, the ring size, anything you have already decided…"></textarea>
+            <span class="field__hint" data-counter aria-live="off">4,000 characters; a paragraph is plenty.</span>
+            <span class="field__err" data-err="message" role="alert"></span>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" name="newsletter" value="yes">
+            <span>Add me to the Inner Circle for private viewings. Unsubscribe anytime.</span>
+          </label>
+
+          <p class="_gotcha-wrap" aria-hidden="true"><label>Leave this field empty <input name="_gotcha" tabindex="-1" autocomplete="off"></label></p>
+
+          <div class="form__end">
+            <button class="btn btn--pri btn--lg" type="submit" data-submit>Send to the bench</button>
+            <span class="form__status" data-form-status role="status" aria-live="polite"></span>
+          </div>
+          <p class="fineprint">We read everything; we reply within 1 business day. Your email is used
+             to answer and nothing else. <a href="/privacy/">Privacy in plain language</a>.</p>
+        </form>
+
+        <aside class="form-side">
+          <div class="side-block">
+            <h2 class="h-rule">Prefer a person, now</h2>
+            <p><a class="side-link" href="tel:+12125550143"><span class="side-link__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M5.5 4h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v3a2 2 0 0 1-2.2 2A15.5 15.5 0 0 1 3.5 6.2 2 2 0 0 1 5.5 4z"/></svg></span>(212) 555-0143</a></p>
+            <p><a class="side-link" href="mailto:hello@lumierejewels.com"><span class="side-link__i" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="1"/><path d="m4 7 8 6 8-6"/></svg></span>hello@lumierejewels.com</a></p>
+          </div>
+          <div class="side-block">
+            <h2 class="h-rule">At the counter instead</h2>
+            <address>
+              143 Wooster Street<br>
+              New York, NY 10012
+            </address>
+            <p>Tuesday to Saturday, 11am&ndash;7pm.
+               Sunday by appointment.
+               <a class="quiet" href="/atelier/#visit">Map &amp; hours &rarr;</a></p>
+          </div>
+          <div class="side-block">
+            <h2 class="h-rule">Before you ask</h2>
+            <p>The answer is probably on <a class="quiet" href="/care/#faq">the FAQ</a>:
+               care, resizing, engraving, and the lifetime promise.
+               Holiday code <strong>LUMIERE15</strong> is 15% off, applied at checkout or by us at the counter.</p>
+          </div>
+        </aside>
+      </div>
