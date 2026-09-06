@@ -94,7 +94,7 @@ function header(active) {
     <div class="hdr__inner wrap">
       <a class="brand" href="/" aria-label="Lumière Jewels, home">
         <span class="brand__mark">${ICON.mark}</span>
-        <span class="brand__name">Lumière</span>
+        <span class="brand__name" translate="no">Lumière</span>
       </a>
       <nav class="nav" aria-label="Main">
 ${links}
@@ -117,7 +117,7 @@ ${links}
     <div class="menu__scrim" data-menu-close></div>
     <nav class="menu__panel" role="dialog" aria-modal="true" aria-label="Site menu">
       <div class="menu__top">
-        <span class="brand" aria-hidden="true"><span class="brand__mark">${ICON.mark}</span><span class="brand__name">Lumière</span></span>
+        <span class="brand" aria-hidden="true"><span class="brand__mark">${ICON.mark}</span><span class="brand__name" translate="no">Lumière</span></span>
         <button class="iconbtn" type="button" data-menu-close aria-label="Close menu">${ICON.close}</button>
       </div>
       <div class="menu__links">
@@ -143,7 +143,7 @@ function footer() {
     <div class="wrap">
       <div class="ftr__grid">
         <div class="ftr__brand">
-          <span class="brand" aria-hidden="true"><span class="brand__mark brand__mark--lg">${ICON.mark}</span><span class="brand__name brand__name--lg">Lumière</span></span>
+          <span class="brand" aria-hidden="true"><span class="brand__mark brand__mark--lg">${ICON.mark}</span><span class="brand__name brand__name--lg" translate="no">Lumière</span></span>
           <p class="ftr__tag">Fine jewelry, hand-finished on Wooster Street. Priced in the open since 2019.</p>
           <p class="ftr__line">
             <a href="tel:${SITE.phone}">${SITE.phoneDisplay}</a>
